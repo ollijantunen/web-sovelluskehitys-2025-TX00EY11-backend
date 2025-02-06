@@ -1,19 +1,45 @@
 ## Web-sovelluskehitys -kurssi 1/2025-3/2025 @ Metropolia Ammattikorkeakoulu
 
-##### Backend -tehtävä, viikko 2
+##### Backend -tehtävä, viikko 3
 
 ---
 
+https://github.com/mattpe/hyte-web-dev/blob/main/05-databases.md
+
 ###### Tehtävänanto
 
-https://github.com/mattpe/hyte-web-dev/blob/main/04-node-express-2.md
+Week assignment 3
 
-Week assignment 2
+Think about requirements of a health diary app. What kind of data is needed?
 
-Follow the teacher's example ("Creating a REST API with mock data" section above, link to the example code is in Oma) and implement TODOs in the example code. See assignment details in Oma.
+    - Test the example queries in this material
 
-->
-Jatka tunnilla tehtyä projektia. Katso opettajan tuntiesimerkki malliksi (linkki työtilan dokumenteissa, branch "week2"). Täydennä puuttuvat osiot (merkattu TODO-kommentein tunnilla tehtyyn esimerkkiin) ja palauta klikattava linkki oman Github-repositoriosi oikeaan kehityshaaraan (branch).
+    - Design one or two tables more for the app (in addition to the ones we already have in examples)
+
+    Draw a diagram of the database structure (including relations between tables)
+
+    Define the data types for the columns
+
+    Define primary keys and foreign keys
+
+    Implement SQL statements for creating the tables
+
+    Insert multiple records of mock data into the tables
+
+    Think about use cases for the data from the application point of view and provide examples how to update, delete and query the data in a meaningful way
+
+    Create a db/ folder into your project repo
+        Create a script file including all your SQL statements (create tables, insert data, queries, updates, etc.)
+        Place your db design files (e.g. image) into the folder
+
+    Add, commit and push the script to your Git and Github repo:
+
+    git checkout -b week3
+    git add .
+    git commit -m "Add database design and sql script"
+    git push origin week3
+
+Returning: Check assignment in OMA.
 
 ---
 
