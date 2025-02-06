@@ -1,43 +1,44 @@
 ## Web-sovelluskehitys -kurssi 1/2025-3/2025 @ Metropolia Ammattikorkeakoulu
 
-##### Backend -tehtävä, viikko 3
+#### Backend -tehtävä, viikko 3
 
 ---
 
 https://github.com/mattpe/hyte-web-dev/blob/main/05-databases.md
 
-###### Tehtävänanto
+#### Tehtävänanto
 
-Week assignment 3
+##### Week assignment 3
 
 Think about requirements of a health diary app. What kind of data is needed?
 
-    - Test the example queries in this material
+- Test the example queries in this material
 
-    - Design one or two tables more for the app (in addition to the ones we already have in examples)
+- Design one or two tables more for the app (in addition to the ones we already have in examples)
 
-    Draw a diagram of the database structure (including relations between tables)
+- Draw a diagram of the database structure (including relations between tables)
 
-    Define the data types for the columns
+- Define the data types for the columns
 
-    Define primary keys and foreign keys
+- Define primary keys and foreign keys
 
-    Implement SQL statements for creating the tables
+- Implement SQL statements for creating the tables
 
-    Insert multiple records of mock data into the tables
+- Insert multiple records of mock data into the tables
 
-    Think about use cases for the data from the application point of view and provide examples how to update, delete and query the data in a meaningful way
+- Think about use cases for the data from the application point of view and provide examples how to update, delete and query the data in a meaningful way
 
-    Create a db/ folder into your project repo
+- Create a db/ folder into your project repo
         Create a script file including all your SQL statements (create tables, insert data, queries, updates, etc.)
         Place your db design files (e.g. image) into the folder
 
-    Add, commit and push the script to your Git and Github repo:
-
-    git checkout -b week3
-    git add .
-    git commit -m "Add database design and sql script"
-    git push origin week3
+- Add, commit and push the script to your Git and Github repo:
+```
+git checkout -b week3
+git add .
+git commit -m "Add database design and sql script"
+git push origin week3
+```
 
 Returning: Check assignment in OMA.
 
