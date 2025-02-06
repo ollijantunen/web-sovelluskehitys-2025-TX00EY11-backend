@@ -1,6 +1,6 @@
 ## Web-sovelluskehitys -kurssi 1/2025-3/2025 @ Metropolia Ammattikorkeakoulu
 
-#### Backend -tehtävä, viikko 3
+#### Backend-tehtävä, viikko 3
 
 ---
 
