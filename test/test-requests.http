@@ -44,46 +44,6 @@ Content-Type: application/json
 ### DELETE item by id
 DELETE {{apiUrl}}/items/3
 
-## users
-
-### GET all users
-GET {{apiUrl}}/users
-
-### GET user by id
-GET {{apiUrl}}/users/3
-
-### POST add new user
-POST {{apiUrl}}/users
-Content-Type: application/json
-
-{
-    "username": "johndoe5",
-    "password": "password5",
-    "email": "johndoe5@example.com"
-}
-
-### PUT update an user by id
-PUT {{apiUrl}}/users/1
-Content-Type: application/json
-
-{
-    "email": "newmail-johndoe@example.com"
-}
-
-### DELETE user by id
-DELETE {{apiUrl}}/users/2
-
-## login
-
-### POST mock login
-POST {{apiUrl}}/login
-Content-Type: application/json
-
-{
-    "username": "johndoe5",
-    "password": "password5"
-}
-
 ### POST tehtavat. Json-body.
 POST {{baseUrl}}/api/tehtavat
 Content-Type: application/json

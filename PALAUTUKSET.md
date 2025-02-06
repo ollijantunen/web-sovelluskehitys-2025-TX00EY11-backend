@@ -1,8 +1,12 @@
 ## Kurssin tehtävät
 
+### Viikko 3
+
+- [ ] Myöhässä | määräaika ti 4.2. klo 23.45
+
 ### Viikko 2
 
-- [ ] | määräaika ke 29.01.2025 23.45 (suomen aikaa)
+- [x] Palautettu ajoissa | määräaika ke 29.01.2025 23.45 (suomen aikaa)
 
 ### Viikko 1
 
@@ -12,4 +16,4 @@
 
 ### Viikko
 
-- [ ] määräaika
+- [ ] | määräaika

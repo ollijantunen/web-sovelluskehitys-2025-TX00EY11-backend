@@ -1,0 +1,34 @@
+@baseUrl = http://127.0.0.1:3000
+@apiUrl = http://127.0.0.1:3000/api
+@usersApiUrl = http://127.0.0.1:3000/api/users
+
+## users
+
+### GET all users
+GET {{usersApiUrl}}/
+### GET all users
+GET {{usersApiUrl}}
+
+### GET user by id
+GET {{usersApiUrl}}/3
+
+### POST add new user
+POST {{usersApiUrl}}/
+Content-Type: application/json
+
+{
+    "username": "johndoe5",
+    "password": "password5",
+    "email": "johndoe5@example.com"
+}
+
+### PUT update an user by id
+PUT {{usersApiUrl}}/1
+Content-Type: application/json
+
+{
+    "email": "newmail-johndoe@example.com"
+}
+
+### DELETE user by id
+DELETE {{usersApiUrl}}/2
