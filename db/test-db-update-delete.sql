@@ -1,0 +1,1 @@
+-- This file contains examples to update and delete data in the test database of Health Diary

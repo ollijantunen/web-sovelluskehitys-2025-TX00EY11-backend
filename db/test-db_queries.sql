@@ -1,0 +1,1 @@
+-- This file contains query examples to the test database of Health Diary

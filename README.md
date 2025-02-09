@@ -12,28 +12,28 @@ https://github.com/mattpe/hyte-web-dev/blob/main/05-databases.md
 
 Think about requirements of a health diary app. What kind of data is needed?
 
-- Test the example queries in this material
+- [x] Test the example queries in this material
 
-- Design one or two tables more for the app (in addition to the ones we already have in examples)
+- [x] Design one or two tables more for the app (in addition to the ones we already have in examples)
 
-- Draw a diagram of the database structure (including relations between tables)
+- [x] Draw a diagram of the database structure (including relations between tables)
 
-- Define the data types for the columns
+- [x] Define the data types for the columns
 
-- Define primary keys and foreign keys
+- [x] Define primary keys and foreign keys
 
-- Implement SQL statements for creating the tables
+- [x] Implement SQL statements for creating the tables
 
-- Insert multiple records of mock data into the tables
+- [x] Insert multiple records of mock data into the tables
 
-- Think about use cases for the data from the application point of view and provide examples how to update, delete and query the data in a meaningful way
+- [ ] Think about use cases for the data from the application point of view and provide examples how to update, delete and query the data in a meaningful way
 
-- Create a db/ folder into your project repo
+- [ ] Create a db/ folder into your project repo
 
-  - Create a script file including all your SQL statements (create tables, insert data, queries, updates, etc.)
-  - Place your db design files (e.g. image) into the folder
+  - [ ] Create a script file including all your SQL statements (create tables, insert data, queries, updates, etc.)
+  - [x] Place your db design files (e.g. image) into the folder
 
-- Add, commit and push the script to your Git and Github repo:
+- [ ] Add, commit and push the script to your Git and Github repo:
 
 ```
 git checkout -b week3
@@ -42,7 +42,7 @@ git commit -m "Add database design and sql script"
 git push origin week3
 ```
 
-Returning: Check assignment in OMA.
+[ ] Returning: Check assignment in OMA.
 
 ---
 
