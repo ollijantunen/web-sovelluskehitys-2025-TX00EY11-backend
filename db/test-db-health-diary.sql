@@ -103,7 +103,7 @@ INSERT INTO drug_entries (user_id, entry_date, drug_name, drug_strength_amount, 
 -- Insert mock data for symptom entries
 -- using escape \ to have '-character in VARCHAR-string. Works although shows up syntax error in VS code language mode (MS SQL)
 INSERT INTO symptom_entries (user_id, entry_date, illness_name, symptom_description, symptom_intensity, created_at) VALUES
-    (1, '2025-01-12', 'headache', 'head hurts', ' a lot', '2025-02-06 08:00:00'),
+    (1, '2025-01-12', 'headache', 'head hurts', 'a lot', '2025-02-06 08:00:00'),
     (2, '2025-01-26', 'back pain', 'burning pain', 'little bit', '2025-02-06 08:00:00'),
     (2, '2025-02-01', 'headache', 'head hurts', 'very painful', '2025-02-06 08:00:00'),
     (2, '2025-02-02', 'back pain', 'not able to move', 'painful', '2025-02-06 08:00:00'),
