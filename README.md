@@ -42,7 +42,7 @@ git commit -m "Add database design and sql script"
 git push origin week3
 ```
 
-[ ] Returning: Check assignment in OMA.
+[x] Returning: Check assignment in OMA.
 
 ---
 
