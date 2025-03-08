@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import {
   addItem,
   getItemById,
@@ -14,9 +15,13 @@ import {
   removeUser,
   updateUser,
 } from './users.js';
+import userRouter from './routes/user-router.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
+
+// Käytetään Cors-middlewarea
+app.use(cors());
 
 // Staattinen html-sivusto tarjoillaan palvelimen juuressa
 app.use(express.static('public'));
@@ -25,11 +30,14 @@ app.use(express.static('public'));
 app.use(express.json());
 
 // REST-apin resurssit tarjoillaan muualla kuin juuressa, tässä /api/-polun alla
-app.get('/api', (req, res) => {
-  console.log('get-pyyntö reittiin', req.url);
+app.get('/api/', (req, res) => {
+  console.log('get-pyyntö /api/-reittiin', req.url);
 
   res.send('Welcome to my REST API!');
 });
+
+// Users-resurssin päätepisteet (endpoint)
+app.use('/api/users', userRouter)
 
 // Items-resurssin päätepisteet (endpoint)
 app.get('/api/items', getItems);
@@ -39,7 +47,7 @@ app.put('/api/items/:id', updateItem);
 app.delete('/api/items/:id', removeItem);
 
 // Users-resurssin päätepisteet (endpoint)
-app.get('/api/users', getUsers);
+// app.get('/api/users', getUsers);
 app.get('/api/users/:id', getUserById);
 app.post('/api/users', addUser);
 app.put('/api/users/:id', updateUser);
