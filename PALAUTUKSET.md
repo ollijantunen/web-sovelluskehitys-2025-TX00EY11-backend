@@ -2,7 +2,7 @@
 
 ### Viikko 3
 
-- [x] Myöhässä | määräaika ti 4.2. klo 23.45
+- [x] Palautettu myöhässä | määräaika ti 4.2. klo 23.45
 
 ### Viikko 2
 
