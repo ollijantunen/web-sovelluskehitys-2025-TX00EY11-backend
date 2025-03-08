@@ -26,14 +26,14 @@ Think about requirements of a health diary app. What kind of data is needed?
 
 - [x] Insert multiple records of mock data into the tables
 
-- [ ] Think about use cases for the data from the application point of view and provide examples how to update, delete and query the data in a meaningful way
+- [x] Think about use cases for the data from the application point of view and provide examples how to update, delete and query the data in a meaningful way
 
 - [x] Create a db/ folder into your project repo
 
   - [x] Create a script file including all your SQL statements (create tables, insert data, queries, updates, etc.)
   - [x] Place your db design files (e.g. image) into the folder
 
-- [ ] Add, commit and push the script to your Git and Github repo:
+- [x] Add, commit and push the script to your Git and Github repo:
 
 ```
 git checkout -b week3

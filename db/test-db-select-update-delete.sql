@@ -10,6 +10,7 @@ INNER JOIN users AS u ON de.user_id = u.user_id GROUP BY de.user_id ORDER BY Num
 -- Update mock data for diary_entries
 -- Update weight entry for id 5. MariaDB fixes if data is too "long" ex. "88.99" -> "89.0".
 UPDATE diary_entries SET weight = 88.99 WHERE entry_id = 5;
+UPDATE diary_entries SET mood = 'good x2' WHERE entry_id = 1;
 --
 
 
