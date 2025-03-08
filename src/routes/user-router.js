@@ -1,9 +1,27 @@
 import express from 'express';
-import {getUsers} from '../controllers/user-controller.js';
+import {
+  addUser,
+  deleteUser,
+  editUser,
+  getUserById,
+  getUsers,
+  login,
+} from '../controllers/user-controller.js';
 
 const userRouter = express.Router();
 
-// route to /api/users
-userRouter.route('/').get(getUsers);
+// routes to /api/users
+userRouter.route('/')
+  .get(getUsers)
+  .post(addUser);
+
+// routes to /api/users/:id
+userRouter.route('/:id')
+  .get(getUserById)
+  .put(editUser)
+  .delete(deleteUser);
+
+userRouter.route('/login')
+  .post(login);
 
 export default userRouter;

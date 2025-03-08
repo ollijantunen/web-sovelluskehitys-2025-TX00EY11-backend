@@ -8,12 +8,7 @@ import {
   updateItem,
 } from './items.js';
 import {
-  addUser,
-  getUserById,
-  getUsers,
   login,
-  removeUser,
-  updateUser,
 } from './users.js';
 import userRouter from './routes/user-router.js';
 const hostname = '127.0.0.1';
@@ -48,10 +43,10 @@ app.delete('/api/items/:id', removeItem);
 
 // Users-resurssin päätepisteet (endpoint)
 // app.get('/api/users', getUsers);
-app.get('/api/users/:id', getUserById);
-app.post('/api/users', addUser);
-app.put('/api/users/:id', updateUser);
-app.delete('/api/users/:id', removeUser);
+// app.get('/api/users/:id', getUserById);
+// app.post('/api/users', addUser);
+// app.put('/api/users/:id', updateUser);
+// app.delete('/api/users/:id', removeUser);
 
 // Mock login-reitti
 app.post('/api/login', login);
