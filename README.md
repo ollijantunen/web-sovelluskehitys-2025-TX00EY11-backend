@@ -1,48 +1,43 @@
 ## Web-sovelluskehitys -kurssi 1/2025-3/2025 @ Metropolia Ammattikorkeakoulu
 
-#### Backend-tehtävä, viikko 3
+#### Backend-tehtävä, viikko 4
 
 ---
 
-https://github.com/mattpe/hyte-web-dev/blob/main/05-databases.md
+https://github.com/mattpe/hyte-web-dev/blob/main/07-express-mvc-db.md#week-assignment-4---express-mvc-and-database
 
 #### Tehtävänanto
 
-##### Week assignment 3
+##### Week Assignment 4 - Express MVC and database
 
 Think about requirements of a health diary app. What kind of data is needed?
 
-- [x] Test the example queries in this material
+- [ ] Continue your existing Express app and create a branch express-db
+  - [ ] Implement MVC model (file or feature based project structure, your choice)
+    You can use the teacher's example code as a starting point (see Oma).
+    - [ ] Convert your existing API resources (/api/entries and /api/users) to use the MVC model
+    - [ ] Use react.Router to modularize your routes for separate endpoints
+    - [ ] Connect to the database (mysql2) and use appropriate SQL statements in the data models
+    - [ ] Use the previous week's example database instead of mock data
+    - [ ] Implement all of the following endpoints:
+      - [ ] GET /api/entries - list all diary entries
+      - [ ] GET /api/entries/:id - get diary entry by id
+      - [ ] PUT /api/entries/:id - update a diary entry (optional)
+      - [ ] DELETE /api/entries/:id - delete entry (optional)
+      - [ ] GET /api/users - list all users
+      - [ ] GET /api/users/:id - get user by id
+      - [ ] POST /api/users - add a new user
+      - [ ] PUT /api/users/:id - update user (optional)
+      - [ ] DELETE /api/users/:id - delete user (optional)
 
-- [x] Design one or two tables more for the app (in addition to the ones we already have in examples)
+Extra:
+- [ ] Design and implement endpoints for medications, exercises or your own custom resource
+- [ ] Think about what the user of application would need to do with the data
+  - [ ] Describe your implementations and the use cases for it
+    - [ ] What features/functions you implemented and why?
+    - [ ] How they work?
 
-- [x] Draw a diagram of the database structure (including relations between tables)
-
-- [x] Define the data types for the columns
-
-- [x] Define primary keys and foreign keys
-
-- [x] Implement SQL statements for creating the tables
-
-- [x] Insert multiple records of mock data into the tables
-
-- [x] Think about use cases for the data from the application point of view and provide examples how to update, delete and query the data in a meaningful way
-
-- [x] Create a db/ folder into your project repo
-
-  - [x] Create a script file including all your SQL statements (create tables, insert data, queries, updates, etc.)
-  - [x] Place your db design files (e.g. image) into the folder
-
-- [x] Add, commit and push the script to your Git and Github repo:
-
-```
-git checkout -b week3
-git add .
-git commit -m "Add database design and sql script"
-git push origin week3
-```
-
-- [x] Returning: Check assignment in OMA.
+- [ ] Returning: See assignment in Oma.
 
 ---
 

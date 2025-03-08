@@ -1,5 +1,9 @@
 ## Kurssin tehtävät
 
+### Viikko 4
+
+- [ ] Myöhässä | määräaika ti 11.2. klo 23.45
+
 ### Viikko 3
 
 - [x] Myöhässä | määräaika ti 4.2. klo 23.45
