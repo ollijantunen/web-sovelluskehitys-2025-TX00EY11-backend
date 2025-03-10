@@ -1,51 +1,42 @@
 ## Web-sovelluskehitys -kurssi 1/2025-3/2025 @ Metropolia Ammattikorkeakoulu
 
-#### Backend-tehtävä, viikko 4
+#### Backend-tehtävä, viikko 5
 
 ---
 
-https://github.com/mattpe/hyte-web-dev/blob/main/07-express-mvc-db.md#week-assignment-4---express-mvc-and-database
+https://github.com/mattpe/hyte-web-dev/blob/main/08-state-auth.md#assignment
 
 #### Tehtävänanto
 
-##### Week Assignment 4 - Express MVC and database
+##### Week Assignment 5 - Application State and User Authentication
 
-Think about requirements of a health diary app. What kind of data is needed?
+Continue your existing Express app and create a branch authentication
+  See the teacher's example (link in Oma) for reference to get started
+  - [ ] Implement user authentication to your app
+    - [ ] Add endpoint POST /api/auth/login
+    - [ ] Use JWT for authentication
+    - [ ] Use bcrypt for password hashing
+  - [ ] Implement proper authorization for protected routes, e.g.:
+    - [ ] PUT /api/entries/:id - only entry owner can update entry
+    - [ ] DELETE /api/entries/:id - only entry owner can delete entry
+    - [ ] PUT /api/users/ - users can update only their own user info
+    - [ ] and so on...
+    - [ ] describe your rules in README.md
+  - [ ] Extra (optional): think about how existing endpoints should work and what other endpoints you might need for your app and     implement them with proper authentication and authorization. e.g.:
+    - [ ] GET /api/entries - list only user's own entries: get all entries by user id from token
+    - [ ] GET /api/entries/stats - get some statistics about entries like sleep time average, etc.
+  - [ ] Extra (optional): implement user roles (e.g. admin, user) with different permissions (role based resource authorization)
+    - [ ] Regular users can only delete and edit their own data
+      Modify the DELETE and UPDATE SQL queries in models so that queries will also check that the owner of the item (user_id) matches the user_id property in the req.user object. req.user is decoded from the token and needs to be passed as a parameter from controller to corresponding model method.
+    - [ ] Admin level users can see, update or delete any diary entries, user info, etc.
+      You cant create a new function in the user model that checks if the user is an admin and returns a boolean value.
+      Add another DELETE and UPDATE SQL queries into model functions that do not check the user_id property. Instead, you need to check that the user id from the token belongs to an admin user.
+      Use e.g. conditional statements in the models to decide which SQL query to use based on the user level.
 
-- [x] Continue your existing Express app and create a branch express-db
-  - [x] Implement MVC model (file or feature based project structure, your choice)
-    You can use the teacher's example code as a starting point (see Oma).
-    - [x] Convert your existing API resources (/api/entries and /api/users) to use the MVC model
-    - [x] Use react.Router to modularize your routes for separate endpoints
-    - [x] Connect to the database (mysql2) and use appropriate SQL statements in the data models
-    - [x] Use the previous week's example database instead of mock data
-    - [x] Implement all of the following endpoints:
-      - [x] GET /api/entries - list all diary entries
-      - [x] GET /api/entries/:id - get diary entry by id
-      - [x] PUT /api/entries/:id - update a diary entry (optional)
-      - [x] DELETE /api/entries/:id - delete entry (optional)
-      - [x] GET /api/users - list all users
-      - [x] GET /api/users/:id - get user by id
-      - [x] POST /api/users - add a new user
-      - [x] PUT /api/users/:id - update user (optional)
-      - [x] DELETE /api/users/:id - delete user (optional)
-
-Extra:
-- [x] Design and implement endpoints for medications, exercises or your own custom resource
-- [x] Think about what the user of application would need to do with the data
-  - [x] Describe your implementations and the use cases for it
-    - [x] What features/functions you implemented and why?
-    - [ ] How they work?
-
-- [ ] Returning: See assignment in Oma.
+- [ ] Returning: See related assignment in Oma.
 
 ###### Omaan:
 Kommentit:
-
-Toteutin mvc-mallin mukaisen reitityksen tiedostojakoon (routes-controllers-models) perustuen.
-Lisäresursseina "drug entries" ja "symptom entries" mahdollistamaan lääkkeiden oton ja sairauksien oireiden seurannan käyttäjälle.
--> Käyttäjä syöttää dataa, voi muokata dataansa, lukea sitä, poistaa sen.
-Lisäresurssit sekä diary entries ovat toiminnoiltaan samanlaisia /api/entries/-polun alla. Käytössä samat toiminnallisuudet (CRUD) kuin users-resurssilla.
 
 ---
 
