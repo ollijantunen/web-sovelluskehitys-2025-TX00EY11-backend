@@ -1,4 +1,4 @@
-@diariesApiUrl = http://127.0.0.1:3000/api/diary/entries/diaries
+@diariesApiUrl = http://127.0.0.1:3000/api/entries/
 
 ## diaries
 
@@ -6,3 +6,36 @@
 GET {{diariesApiUrl}}/
 ### GET all diaries
 GET {{diariesApiUrl}}
+
+### GET entry by id
+GET {{diariesApiUrl}}/12
+
+### POST add new entry
+POST {{diariesApiUrl}}/
+Content-Type: application/json
+
+{
+    "user_id": "1",
+    "entry_date": "2025-03-09",
+    "mood": "good",
+    "weight": "75",
+    "sleep_hours": "7",
+    "notes": "nothing to add"
+}
+
+### PUT update an entry by id
+PUT {{diariesApiUrl}}/15
+Content-Type: application/json
+
+{
+    "entry_dat": "2025-03-01",
+    "entry_date": "2025-03-02",
+    "mood": "good",
+    "weight": "75",
+    "sleep_hours": "7",
+    "notes": "updated entry"
+}
+
+### DELETE entry by id
+DELETE {{diariesApiUrl}}/10
+

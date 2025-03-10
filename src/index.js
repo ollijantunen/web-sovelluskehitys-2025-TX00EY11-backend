@@ -35,6 +35,8 @@ app.use('/api/users', userRouter);
 // Entries-resurssien päätepisteet (endpoint)
 app.use('/api/entries', entryRouter);
 
+
+// Alkukurssin harjoittelua ->
 // Items-resurssin päätepisteet (endpoint)
 app.get('/api/items', getItems);
 app.get('/api/items/:id', getItemById);

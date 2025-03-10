@@ -104,7 +104,9 @@ const removeUser = async (userId) => {
   }
 };
 
+//
 // HELPERS
+//
 
 // Helper to check if user can be created
 const uniqueUser = async (user) => {

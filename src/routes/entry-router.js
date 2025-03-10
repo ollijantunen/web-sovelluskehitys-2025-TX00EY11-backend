@@ -5,7 +5,7 @@ import symptomEntryRouter from './symptom-entry-router.js';
 
 const entryRouter = express.Router();
 
-entryRouter.use('/diaries', diaryEntryRouter);
+entryRouter.use('/', diaryEntryRouter);
 entryRouter.use('/drugs', drugEntryRouter);
 entryRouter.use('/symptoms', symptomEntryRouter);
 

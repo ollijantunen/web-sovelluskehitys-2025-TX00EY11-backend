@@ -50,7 +50,7 @@ const getUserById = async (req, res) => {
 };
 
 /**
- * add a user to database
+ * add an user to database
  * @param {object} req Request object
  * @param {object} res Response object
  * @returns {object} Message object including id of created user
@@ -84,10 +84,10 @@ const addUser = async (req, res) => {
 };
 
 /**
- * Update user data on database
+ * Update user's data on database
  * @param {object} req Request object
  * @param {object} res Response object
- * @returns {object} Message object including id of created user
+ * @returns {object} Message object including id of updated user
  */
 const editUser = async (req, res) => {
   const id = Number(req.params.id);
