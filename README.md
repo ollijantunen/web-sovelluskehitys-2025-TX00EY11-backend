@@ -12,7 +12,7 @@ https://github.com/mattpe/hyte-web-dev/blob/main/07-express-mvc-db.md#week-assig
 
 Think about requirements of a health diary app. What kind of data is needed?
 
-- [ ] Continue your existing Express app and create a branch express-db
+- [x] Continue your existing Express app and create a branch express-db
   - [ ] Implement MVC model (file or feature based project structure, your choice)
     You can use the teacher's example code as a starting point (see Oma).
     - [ ] Convert your existing API resources (/api/entries and /api/users) to use the MVC model
@@ -24,11 +24,11 @@ Think about requirements of a health diary app. What kind of data is needed?
       - [ ] GET /api/entries/:id - get diary entry by id
       - [ ] PUT /api/entries/:id - update a diary entry (optional)
       - [ ] DELETE /api/entries/:id - delete entry (optional)
-      - [ ] GET /api/users - list all users
-      - [ ] GET /api/users/:id - get user by id
-      - [ ] POST /api/users - add a new user
-      - [ ] PUT /api/users/:id - update user (optional)
-      - [ ] DELETE /api/users/:id - delete user (optional)
+      - [x] GET /api/users - list all users
+      - [x] GET /api/users/:id - get user by id
+      - [x] POST /api/users - add a new user
+      - [x] PUT /api/users/:id - update user (optional)
+      - [x] DELETE /api/users/:id - delete user (optional)
 
 Extra:
 - [ ] Design and implement endpoints for medications, exercises or your own custom resource

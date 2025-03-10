@@ -17,18 +17,18 @@ POST {{usersApiUrl}}/
 Content-Type: application/json
 
 {
-    "username": "johndoe5",
-    "password": "password5",
-    "email": "johndoe5@example.com"
+    "username": "johndoe353",
+    "password": "password",
+    "email": "johndoe2023@example.com"
 }
 
 ### PUT update an user by id
-PUT {{usersApiUrl}}/1
+PUT {{usersApiUrl}}/6
 Content-Type: application/json
 
 {
-    "email": "newmail-johndoe@example.com"
+    "email": "newmaeils5a5-johndoe@example.com"
 }
 
 ### DELETE user by id
-DELETE {{usersApiUrl}}/2
+DELETE {{usersApiUrl}}/10

@@ -21,6 +21,7 @@ userRouter.route('/:id')
   .put(editUser)
   .delete(deleteUser);
 
+// route to login /api/users/login
 userRouter.route('/login')
   .post(login);
 

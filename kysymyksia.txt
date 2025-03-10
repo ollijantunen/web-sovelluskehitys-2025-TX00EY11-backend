@@ -6,6 +6,8 @@
 - Miksi nimetä pääavain esim. user_id eikä pelkkä id? Pelkällä id:llä erottaisi kyselyissä pääavaimen vierasavaimesta.
 Toisaalta "user_id"-tavalla nimetty kertoo laajassa kyselyssä selkeästi, minkä taulun id on kyseessä.
 
+- Esim. uutta käyttäjää lisätessä pääavaimen auto_increment kasvattaa id:tä, vaikka lisäys tauluun ei onnistuisikaan.
+
 # Express
 - Onko eroa polulla '/api' ja '/api/'?
 - Onko 'delete user.password' eli parametrin poisto objektista js:ää vai express:n komento?

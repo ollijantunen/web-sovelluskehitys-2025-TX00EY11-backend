@@ -7,9 +7,6 @@ import {
   removeItem,
   updateItem,
 } from './items.js';
-import {
-  login,
-} from './users.js';
 import userRouter from './routes/user-router.js';
 const hostname = '127.0.0.1';
 const app = express();
@@ -40,16 +37,6 @@ app.get('/api/items/:id', getItemById);
 app.post('/api/items', addItem);
 app.put('/api/items/:id', updateItem);
 app.delete('/api/items/:id', removeItem);
-
-// Users-resurssin päätepisteet (endpoint)
-// app.get('/api/users', getUsers);
-// app.get('/api/users/:id', getUserById);
-// app.post('/api/users', addUser);
-// app.put('/api/users/:id', updateUser);
-// app.delete('/api/users/:id', removeUser);
-
-// Mock login-reitti
-app.post('/api/login', login);
 
 // Syötteen lukeminen reittiparametreista (route parameter(=params))
 app.get('/api/sum/:num1/:num2', (req, res) => {
