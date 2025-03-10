@@ -125,6 +125,7 @@ const editUser = async (req, res) => {
 
 /**
  * Delete user from database by id
+ * TODO: FIX issue: FK constraints prevent deleting if references exist
  * @param {object} req Request object
  * @param {object} res Response object
  * @returns {object} Message object

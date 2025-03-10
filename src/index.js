@@ -8,6 +8,7 @@ import {
   updateItem,
 } from './items.js';
 import userRouter from './routes/user-router.js';
+import entryRouter from './routes/entry-router.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
@@ -29,7 +30,10 @@ app.get('/api/', (req, res) => {
 });
 
 // Users-resurssin päätepisteet (endpoint)
-app.use('/api/users', userRouter)
+app.use('/api/users', userRouter);
+
+// Entries-resurssien päätepisteet (endpoint)
+app.use('/api/entries', entryRouter);
 
 // Items-resurssin päätepisteet (endpoint)
 app.get('/api/items', getItems);
