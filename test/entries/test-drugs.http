@@ -1,0 +1,41 @@
+@drugsApiUrl = http://127.0.0.1:3000/api/entries/drugs
+
+## drug entries
+
+### GET all drug entries
+GET {{drugsApiUrl}}/
+### GET all drug entries
+GET {{drugsApiUrl}}
+
+### GET entry by id
+GET {{drugsApiUrl}}/1
+
+### POST add new entry
+POST {{drugsApiUrl}}/
+Content-Type: application/json
+
+{
+    "user_id": "1",
+    "entry_date": "2025-03-01",
+    "drug_name": "Burana",
+    "drug_strength_amount": "600",
+    "drug_strength_unit": "mg",
+    "drug_amount": "2"
+}
+
+### PUT update an entry by id
+PUT {{drugsApiUrl}}/26
+Content-Type: application/json
+
+{
+    "user_id": "1",
+    "entry_date": "2025-03-01",
+    "drug_name": "updated2Burana",
+    "drug_strength_amount": "600",
+    "drug_strength_unit": "mg",
+    "drug_amount": "2"
+}
+
+### DELETE entry by id
+DELETE {{drugsApiUrl}}/24
+

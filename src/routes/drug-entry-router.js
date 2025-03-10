@@ -1,11 +1,23 @@
 import express from 'express';
+import {
+  addEntry,
+  deleteEntry,
+  editEntry,
+  getAllEntries,
+  getEntryById,
+} from '../controllers/drug-entry-controller.js';
 
 const drugEntryRouter = express.Router();
 
-// routes to /api/entries/diary
-drugEntryRouter.route('/').get().post();
+// routes to /api/entries/drugs
+drugEntryRouter.route('/')
+  .get(getAllEntries)
+  .post(addEntry);
 
-// routes to /api/entries/diary/:id
-drugEntryRouter.route('/:id').get().put().delete();
+// routes to /api/entries/drugs/:id
+drugEntryRouter.route('/:id')
+  .get(getEntryById)
+  .put(editEntry)
+  .delete(deleteEntry);
 
 export default drugEntryRouter;

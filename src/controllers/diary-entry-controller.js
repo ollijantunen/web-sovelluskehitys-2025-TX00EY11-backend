@@ -10,7 +10,7 @@ import {
  * Get all diary entries from database
  * @param {object} req Request object
  * @param {object} res Response object
- * @returns {object} All users as JSON-object
+ * @returns {object} All diary_entries as JSON-object
  */
 const getAllEntries = async (req, res) => {
   try {
@@ -37,7 +37,7 @@ const getEntryById = async (req, res) => {
 
   try {
     const entry = await selectEntryById(id);
-    // lähetetään user, jos löytyi eli ei ole undefined
+    // lähetetään entry, jos löytyi eli ei ole undefined
     if (entry) {
       return res.send(entry);
     } else {

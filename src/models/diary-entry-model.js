@@ -18,7 +18,7 @@ const selectAllEntries = async () => {
 };
 
 /**
- *
+ * Fetch entry by id from database
  * @param {number} entryId Id of entry
  * @returns {object} Entry of the sent entry_id from database
  */
@@ -27,7 +27,7 @@ const selectEntryById = async (entryId) => {
   const values = [entryId];
   try {
     const [rows] = await promisePool.query(sql, values);
-    console.log('selectUserById rows ', rows);
+    console.log('selectEntryById rows ', rows);
     return rows[0];
   } catch (error) {
     console.error('Error: selectEntryById');
@@ -69,10 +69,10 @@ const updateEntry = async (entryId, entry) => {
     console.log(entry);
 
     const [result] = await promisePool.query(sql,values);
-    console.log('updateUser result ', result);
+    console.log('updateEntry result ', result);
     return result.affectedRows;
   } catch (error) {
-    console.error('Error: updateUser');
+    console.error('Error: updateEntry');
     throw new Error(error.message);
   }
 };

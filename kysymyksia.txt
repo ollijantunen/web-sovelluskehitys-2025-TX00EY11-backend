@@ -11,6 +11,8 @@ Toisaalta "user_id"-tavalla nimetty kertoo laajassa kyselyssä selkeästi, mink�
 # Express
 - Onko eroa polulla '/api' ja '/api/'?
 - Onko 'delete user.password' eli parametrin poisto objektista js:ää vai express:n komento?
+## Mysql2
+- mysql2(?) palauttaa sql tietokannan DATE-tyyppisen ajan "entry_date": "2025-01-11T22:00:00.000Z". Mistä johtuu / miten voi estää.
 
 # Opettajan server-example
 - Miksi auth-controllerin 'getMe' vain palauttaa käyttäjän lähettämän user-objektin sellaisenaan?
