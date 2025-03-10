@@ -7,10 +7,10 @@ import {
 } from '../models/drug-entry-model.js';
 
 /**
- * Get all diary entries from database
+ * Get all drug entries from database
  * @param {object} req Request object
  * @param {object} res Response object
- * @returns {object} All drug_entries as JSON-object
+ * @returns {object} All drug entries as JSON-object
  */
 const getAllEntries = async (req, res) => {
   try {
@@ -62,7 +62,7 @@ const addEntry = async (req, res) => {
 
   // user_id, entry_date, drug_name, drug_strength_amount, drug_strength_unit mandatory
   if (user_id && entry_date && drug_name && drug_strength_amount && drug_strength_unit) {
-    const newEntry = {user_id, entry_date, drug_name, drug_strength_amount, drug_strength_unit, drug_amount,};
+    const newEntry = {user_id, entry_date, drug_name, drug_strength_amount, drug_strength_unit, drug_amount};
 
     // Clean newEntry of 'undefined' values
     for (let key in newEntry) {

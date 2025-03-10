@@ -1,0 +1,35 @@
+@symptomsApiUrl = http://127.0.0.1:3000/api/entries/symptoms
+
+## symptom entries
+
+### GET all symptom entries
+GET {{symptomsApiUrl}}/
+
+### GET entry by id
+GET {{symptomsApiUrl}}/1
+
+### POST add new entry
+POST {{symptomsApiUrl}}/
+Content-Type: application/json
+
+{
+  "user_id": "5",
+  "entry_date": "2025-03-01",
+  "illness_name": "headache",
+  "symptom_description": "head hurts",
+  "symptom_intensity": "a lot"
+}
+
+### PUT update an entry by id
+PUT {{symptomsApiUrl}}/1
+Content-Type: application/json
+
+{
+  "entry_date": "2025-03-02",
+  "illness_name": "headache",
+  "symptom_description": "updated head hurts",
+  "symptom_intensity": "a lot"
+}
+
+### DELETE entry by id
+DELETE {{symptomsApiUrl}}/1
