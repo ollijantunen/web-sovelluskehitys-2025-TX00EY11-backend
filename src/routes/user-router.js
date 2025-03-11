@@ -5,8 +5,8 @@ import {
   editUser,
   getUserById,
   getUsers,
-  login,
 } from '../controllers/user-controller.js';
+import { authenticateToken } from '../middlewares/authentication.js';
 
 const userRouter = express.Router();
 
@@ -18,11 +18,7 @@ userRouter.route('/')
 // routes to /api/users/:id
 userRouter.route('/:id')
   .get(getUserById)
-  .put(editUser)
-  .delete(deleteUser);
-
-// route to login /api/users/login
-userRouter.route('/login')
-  .post(login);
+  .put(authenticateToken, editUser)
+  .delete(authenticateToken, deleteUser);
 
 export default userRouter;

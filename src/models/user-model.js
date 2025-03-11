@@ -37,6 +37,30 @@ const selectUserById = async (userId) => {
 };
 
 /**
+ * Fetch user by username from database
+ * @param {string} username User username
+ * @returns {object} User found or undefined if no user is found
+ */
+const selectUserByUsername = async (username) => {
+  const sql = `
+    SELECT user_id, username, password, email, last_name, first_name, user_level
+    FROM users
+    WHERE username=?`;
+  const values = [username];
+
+  console.log(values);
+
+  try {
+    const [rows] = await promisePool.query(sql, values);
+    console.log('selectUserByUsername rows ', rows);
+    return rows[0];
+  } catch (error) {
+    console.log('Error selectUserByUsername', error);
+    throw new Error('database error', error.message)
+  }
+}
+
+/**
  * Insert a new user into database
  * @param {object} user User username, password, email and optionally last_name, first_name
  * @returns {number} id of created user
@@ -191,4 +215,4 @@ const userExists = async (userId) => {
   }
 };
 
-export {selectAllUsers, selectUserById, insertUser, updateUser, removeUser};
+export {selectAllUsers, selectUserById, selectUserByUsername, insertUser, updateUser, removeUser};

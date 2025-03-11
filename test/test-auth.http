@@ -1,0 +1,16 @@
+@authApiUrl = http://127.0.0.1:3000/api/auth
+
+## Authentication
+
+### POST login
+POST {{authApiUrl}}/login
+Content-Type: application/json
+
+{
+    "username": "johndoe15",
+    "password": "password"
+}
+
+### GET me: authenticated user
+GET {{authApiUrl}}/me
+Authorization: Bearer

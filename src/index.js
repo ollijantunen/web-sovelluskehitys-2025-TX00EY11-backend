@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import userRouter from './routes/user-router.js';
 import entryRouter from './routes/entry-router.js';
+import authRouter from './routes/auth-router.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
@@ -20,6 +21,9 @@ app.get('/api/', (req, res) => {
   console.log('get-pyyntö /api/-reittiin', req.url);
   res.send('Welcome to my REST API!');
 });
+
+// Käyttäjän autentikoiminen (kirjautuminen)
+app.use('/api/auth', authRouter);
 
 // Users-resurssin päätepisteet (endpoint)
 app.use('/api/users', userRouter);

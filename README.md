@@ -13,9 +13,9 @@ https://github.com/mattpe/hyte-web-dev/blob/main/08-state-auth.md#assignment
 Continue your existing Express app and create a branch authentication
   See the teacher's example (link in Oma) for reference to get started
   - [ ] Implement user authentication to your app
-    - [ ] Add endpoint POST /api/auth/login
-    - [ ] Use JWT for authentication
-    - [ ] Use bcrypt for password hashing
+    - [x] Add endpoint POST /api/auth/login
+    - [x] Use JWT for authentication
+    - [x] Use bcrypt for password hashing
   - [ ] Implement proper authorization for protected routes, e.g.:
     - [ ] PUT /api/entries/:id - only entry owner can update entry
     - [ ] DELETE /api/entries/:id - only entry owner can delete entry

@@ -17,18 +17,29 @@ POST {{usersApiUrl}}/
 Content-Type: application/json
 
 {
-    "username": "johndoe353",
+    "username": "johndoe15",
     "password": "password",
     "email": "johndoe2023@example.com"
 }
 
 ### PUT update an user by id
-PUT {{usersApiUrl}}/6
+PUT {{usersApiUrl}}/5
+Authorization: Bearer
 Content-Type: application/json
 
 {
-    "email": "newmaeils5a5-johndoe@example.com"
+    "email": "newemail-JWT-johndoe@example.com"
+}
+
+### PUT update user's password
+PUT {{usersApiUrl}}/5
+Authorization: Bearer
+Content-Type: application/json
+
+{
+    "password": "hashedpassword5"
 }
 
 ### DELETE user by id
-DELETE {{usersApiUrl}}/10
+DELETE {{usersApiUrl}}/11
+Authorization: Bearer

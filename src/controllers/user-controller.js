@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import {
   insertUser,
   removeUser,
@@ -70,6 +71,14 @@ const addUser = async (req, res) => {
     }
     console.log('newUser: ', newUser);
 
+    // luodaan selväkielisestä salasanasta tiiviste
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(newUser.password, salt);
+      newUser.password = hashedPassword;
+    } catch (error) {
+      throw new Error("bcrypt error: ", error.message);
+    }
     try {
       const result = await insertUser(newUser);
       return res.status(201).json({message: 'User added. Id: ' + result});
@@ -91,11 +100,20 @@ const addUser = async (req, res) => {
  */
 const editUser = async (req, res) => {
   const id = Number(req.params.id);
+  const token_user_id = req.user.user_id;
+
+  console.log(req.user);
+
 
   // Jos id-parametri ei ole numero(muotoinen), niin palautetaan virheilmoitus
   if (isNaN(id)) {
     return res.status(400).json({message: 'Invalid id property.'});
   }
+  // Varmistetaan, että käyttäjällä on oikeus päivittää resurssia
+  if (token_user_id !== id) {
+    return res.status(403).json({message: 'forbidden'});
+  }
+
   const {username, password, email, last_name, first_name} = req.body;
   // Jos req.bodyssä ei ole tarvittavia atribuutteja, palautetaan virheilmoitus
   if (!(username || password || email || last_name || first_name)) {
@@ -112,6 +130,15 @@ const editUser = async (req, res) => {
     }
   }
   console.log(updatableUser);
+
+  // luodaan selväkielisestä salasanasta tiiviste
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(updatableUser.password, salt);
+    updatableUser.password = hashedPassword;
+  } catch (error) {
+    throw new Error("bcrypt error: ", error.message);
+  }
 
   try {
     const result = await updateUser(id, updatableUser);
@@ -132,11 +159,17 @@ const editUser = async (req, res) => {
  */
 const deleteUser = async (req, res) => {
   const id = Number(req.params.id);
+  const token_user_id = req.user.user_id;
 
   // Jos id-parametri ei ole numero(muotoinen), niin palautetaan virheilmoitus
   if (isNaN(id)) {
     return res.status(400).json({message: 'Invalid id property.'});
   }
+
+  if (token_user_id !== id) {
+    return res.status(403).json({message: 'forbidden'});
+  }
+
   try {
     const result = await removeUser(id);
     console.log(result.affectedRows);
@@ -147,15 +180,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// TODO: Implement function
-// User authentication (login)
-const login = async (req, res) => {
-  try {
-    res.send('deleteUser response');
-  } catch (error) {
-    console.log('Error: login', error);
-    res.status(500).json({message: error.message});
-  }
-};
-
-export {getUsers, getUserById, addUser, editUser, deleteUser, login};
+export {getUsers, getUserById, addUser, editUser, deleteUser};
