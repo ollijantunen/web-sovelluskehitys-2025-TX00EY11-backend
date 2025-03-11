@@ -7,7 +7,7 @@
 GET {{symptomsApiUrl}}/
 Authorization: Bearer {{user_token}}
 ### GET entry by id
-GET {{symptomsApiUrl}}/1
+GET {{symptomsApiUrl}}/16
 Authorization: Bearer {{user_token}}
 ### POST add new entry
 POST {{symptomsApiUrl}}/
@@ -15,7 +15,6 @@ Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
 {
-  "user_id": "5",
   "entry_date": "2025-03-01",
   "illness_name": "headache",
   "symptom_description": "head hurts",
@@ -23,7 +22,7 @@ Content-Type: application/json
 }
 
 ### PUT update an entry by id
-PUT {{symptomsApiUrl}}/1
+PUT {{symptomsApiUrl}}/16
 Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
@@ -35,5 +34,5 @@ Content-Type: application/json
 }
 
 ### DELETE entry by id
-DELETE {{symptomsApiUrl}}/1
+DELETE {{symptomsApiUrl}}/17
 Authorization: Bearer {{user_token}}

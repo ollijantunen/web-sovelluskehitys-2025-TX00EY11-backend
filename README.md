@@ -20,16 +20,16 @@ Credentials must be provided in the authorization header with the request.
 |GET|/api/auth/me|User|
 |GET|/api/users|User|
 |GET, POST|/api/entries/diaries/|User|
-|GET, PUT, DELETE|/api/entries/diaries/id|User|
 |GET, POST|/api/entries/drugs/|User|
-|GET, PUT, DELETE|/api/entries/drugs/id|User|
 |GET, POST|/api/entries/symptoms/|User|
-|GET, PUT, DELETE|/api/entries/symptoms/id|User|
 
 ##### Routes requiring authorization (and authentication)
 |Method|Route|For|
 |---|---|---|
 |GET, PUT, DELETE|/api/users/id|User|
+|GET, PUT, DELETE|/api/entries/diaries/id|User|
+|GET, PUT, DELETE|/api/entries/drugs/id|User|
+|GET, PUT, DELETE|/api/entries/symptoms/id|User|
 
 
 ### Backend-tehtävä, viikko 5
@@ -44,21 +44,21 @@ https://github.com/mattpe/hyte-web-dev/blob/main/08-state-auth.md#assignment
 
 Continue your existing Express app and create a branch authentication
   See the teacher's example (link in Oma) for reference to get started
-  - [ ] Implement user authentication to your app
+  - [x] Implement user authentication to your app
     - [x] Add endpoint POST /api/auth/login
     - [x] Use JWT for authentication
     - [x] Use bcrypt for password hashing
-  - [ ] Implement proper authorization for protected routes, e.g.:
-    - [ ] PUT /api/entries/:id - only entry owner can update entry
-    - [ ] DELETE /api/entries/:id - only entry owner can delete entry
+  - [x] Implement proper authorization for protected routes, e.g.:
+    - [x] PUT /api/entries/:id - only entry owner can update entry
+    - [x] DELETE /api/entries/:id - only entry owner can delete entry
     - [x] PUT /api/users/ - users can update only their own user info
-    - [ ] and so on...
-    - [ ] describe your rules in README.md
+    - [x] and so on...
+    - [x] describe your rules in README.md
   - [ ] Extra (optional): think about how existing endpoints should work and what other endpoints you might need for your app and     implement them with proper authentication and authorization. e.g.:
     - [ ] GET /api/entries - list only user's own entries: get all entries by user id from token
     - [ ] GET /api/entries/stats - get some statistics about entries like sleep time average, etc.
   - [ ] Extra (optional): implement user roles (e.g. admin, user) with different permissions (role based resource authorization)
-    - [ ] Regular users can only delete and edit their own data
+    - [x] Regular users can only delete and edit their own data
       Modify the DELETE and UPDATE SQL queries in models so that queries will also check that the owner of the item (user_id) matches the user_id property in the req.user object. req.user is decoded from the token and needs to be passed as a parameter from controller to corresponding model method.
     - [ ] Admin level users can see, update or delete any diary entries, user info, etc.
       You cant create a new function in the user model that checks if the user is an admin and returns a boolean value.

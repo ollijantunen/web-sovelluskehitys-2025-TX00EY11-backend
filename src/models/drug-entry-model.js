@@ -131,10 +131,26 @@ const entryExists = async (entryId) => {
   }
 };
 
+// Helper to get user_id of an entry
+const userIdOfEntry = async (entryId) => {
+  const sql = `SELECT user_id FROM drug_entries WHERE entry_id=?`;
+  const values = [entryId];
+
+  try {
+    await entryExists(entryId);
+    const [rows] = await promisePool.query(sql, values);
+    return rows[0].user_id;
+  } catch (error) {
+    console.log('Error: userIdOfEntry: ', error.message);
+    throw new Error(error.message);
+  }
+};
+
 export {
   selectAllEntries,
   selectEntryById,
   insertEntry,
   updateEntry,
   removeEntry,
+  userIdOfEntry,
 };

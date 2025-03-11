@@ -4,6 +4,7 @@ import {
   selectAllEntries,
   selectEntryById,
   updateEntry,
+  userIdOfEntry,
 } from '../models/drug-entry-model.js';
 
 /**
@@ -30,12 +31,15 @@ const getAllEntries = async (req, res) => {
  */
 const getEntryById = async (req, res) => {
   const id = Number(req.params.id);
+  const token_user_id = req.user.user_id;
+
 
   if (isNaN(id)) {
     return res.status(400).json({message: 'Invalid id property'});
   }
 
   try {
+    await ownerOfEntry(token_user_id, id);
     const entry = await selectEntryById(id);
     // lähetetään entry, jos löytyi eli ei ole undefined
     if (entry) {
@@ -58,7 +62,8 @@ const getEntryById = async (req, res) => {
  */
 const addEntry = async (req, res) => {
   console.log('addEntry req.body', req.body);
-  const {user_id, entry_date, drug_name, drug_strength_amount, drug_strength_unit, drug_amount} = req.body;
+  const user_id = req.user.user_id;
+  const {entry_date, drug_name, drug_strength_amount, drug_strength_unit, drug_amount} = req.body;
 
   // user_id, entry_date, drug_name, drug_strength_amount, drug_strength_unit mandatory
   if (user_id && entry_date && drug_name && drug_strength_amount && drug_strength_unit) {
@@ -91,6 +96,8 @@ const addEntry = async (req, res) => {
  */
 const editEntry = async (req, res) => {
   const id = Number(req.params.id);
+  const token_user_id = req.user.user_id;
+
 
   // Jos id-parametri ei ole numero(muotoinen), niin palautetaan virheilmoitus
   if (isNaN(id)) {
@@ -115,6 +122,7 @@ const editEntry = async (req, res) => {
   console.log(updatableEntry);
 
   try {
+    await ownerOfEntry(token_user_id, id);
     const result = await updateEntry(id, updatableEntry);
     console.log(result);
     return res.status(200).json({message: 'Entry updated.'});
@@ -132,12 +140,15 @@ const editEntry = async (req, res) => {
  */
 const deleteEntry = async (req, res) => {
   const id = Number(req.params.id);
+  const token_user_id = req.user.user_id;
+
 
   // Jos id-parametri ei ole numero(muotoinen), niin palautetaan virheilmoitus
   if (isNaN(id)) {
     return res.status(400).json({message: 'Invalid id property.'});
   }
   try {
+    await ownerOfEntry(token_user_id, id);
     const result = await removeEntry(id);
     console.log(result.affectedRows);
     res.status(200).json({message: `Entry id ${id} deleted.`});
@@ -146,5 +157,19 @@ const deleteEntry = async (req, res) => {
     res.status(500).json({message: error.message});
   }
 };
+
+const ownerOfEntry = async (userId, entryId) => {
+  try {
+    const ownerUserId = await userIdOfEntry(entryId);
+    if (ownerUserId === userId) {
+      return true;
+    } else {
+      throw new Error("forbidden");
+    }
+  } catch (error) {
+    console.log('Error: ownerOfEntry: ', error.message);
+    throw new Error(error.message);
+  }
+}
 
 export {getAllEntries, getEntryById, addEntry, editEntry, deleteEntry};

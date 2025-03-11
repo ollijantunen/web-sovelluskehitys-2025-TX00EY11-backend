@@ -10,7 +10,7 @@ Authorization: Bearer {{user_token}}
 GET {{diariesApiUrl}}
 
 ### GET entry by id
-GET {{diariesApiUrl}}/12
+GET {{diariesApiUrl}}/19
 Authorization: Bearer {{user_token}}
 
 ### POST add new entry
@@ -19,7 +19,6 @@ Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
 {
-    "user_id": "1",
     "entry_date": "2025-03-09",
     "mood": "good",
     "weight": "75",
@@ -28,7 +27,7 @@ Content-Type: application/json
 }
 
 ### PUT update an entry by id
-PUT {{diariesApiUrl}}/15
+PUT {{diariesApiUrl}}/16
 Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
@@ -42,6 +41,6 @@ Content-Type: application/json
 }
 
 ### DELETE entry by id
-DELETE {{diariesApiUrl}}/10
+DELETE {{diariesApiUrl}}/23
 Authorization: Bearer {{user_token}}
 

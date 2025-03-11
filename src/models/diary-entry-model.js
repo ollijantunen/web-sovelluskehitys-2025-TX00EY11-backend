@@ -105,7 +105,7 @@ const removeEntry = async (entryId) => {
 // HELPERS
 //
 
-// Helper to check if user exists
+// Helper to check if entry exists
 const entryExists = async (entryId) => {
   const sql = 'SELECT COUNT(entry_id) as count FROM diary_entries WHERE entry_id=?';
   const values = [entryId];
@@ -126,4 +126,19 @@ const entryExists = async (entryId) => {
   }
 };
 
-export {selectAllEntries, selectEntryById, insertEntry, updateEntry, removeEntry};
+// Helper to get user_id of an entry
+const userIdOfEntry = async(entryId) => {
+  const sql =`SELECT user_id FROM diary_entries WHERE entry_id=?`;
+  const values=[entryId];
+
+  try {
+    await entryExists(entryId);
+    const [rows]= await promisePool.query(sql, values);
+    return rows[0].user_id;
+  } catch (error) {
+    console.log('Error: userIdOfEntry: ', error.message);
+    throw new Error(error.message);
+  }
+}
+
+export {selectAllEntries, selectEntryById, insertEntry, updateEntry, removeEntry, userIdOfEntry};
