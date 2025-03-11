@@ -1,16 +1,20 @@
 @baseUrl = http://127.0.0.1:3000
 @apiUrl = http://127.0.0.1:3000/api
 @usersApiUrl = http://127.0.0.1:3000/api/users
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMiwidXNlcm5hbWUiOiJqb2huZG9lMTUiLCJlbWFpbCI6ImpvaG5kb2UyMDIzQGV4YW1wbGUuY29tIiwibGFzdF9uYW1lIjpudWxsLCJmaXJzdF9uYW1lIjpudWxsLCJ1c2VyX2xldmVsIjoidXNlciIsImlhdCI6MTc0MTcxMzczNiwiZXhwIjoxNzQxODAwMTM2fQ.jqIIPBeq03jD7Mm3k9TJCzJJp9UFHyP_5PN_hlU5iy8
 
 ## users
 
 ### GET all users
 GET {{usersApiUrl}}/
+Authorization: Bearer {{user_token}}
 ### GET all users
 GET {{usersApiUrl}}
 
+
 ### GET user by id
-GET {{usersApiUrl}}/3
+GET {{usersApiUrl}}/12
+Authorization: Bearer {{user_token}}
 
 ### POST add new user
 POST {{usersApiUrl}}/
@@ -23,17 +27,18 @@ Content-Type: application/json
 }
 
 ### PUT update an user by id
-PUT {{usersApiUrl}}/5
-Authorization: Bearer
+PUT {{usersApiUrl}}/12
+Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
 {
-    "email": "newemail-JWT-johndoe@example.com"
+    "email": "newemail-JWT-johndoe155@example.com",
+    "last_name": "Doe12"
 }
 
 ### PUT update user's password
 PUT {{usersApiUrl}}/5
-Authorization: Bearer
+Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
 {
@@ -42,4 +47,4 @@ Content-Type: application/json
 
 ### DELETE user by id
 DELETE {{usersApiUrl}}/11
-Authorization: Bearer
+Authorization: Bearer {{user_token}}

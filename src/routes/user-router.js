@@ -12,12 +12,12 @@ const userRouter = express.Router();
 
 // routes to /api/users
 userRouter.route('/')
-  .get(getUsers)
+  .get(authenticateToken, getUsers)
   .post(addUser);
 
 // routes to /api/users/:id
 userRouter.route('/:id')
-  .get(getUserById)
+  .get(authenticateToken, getUserById)
   .put(authenticateToken, editUser)
   .delete(authenticateToken, deleteUser);
 

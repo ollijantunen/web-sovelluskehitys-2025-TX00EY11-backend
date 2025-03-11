@@ -75,7 +75,7 @@ const insertUser = async (user) => {
     return result.insertId;
   } catch (error) {
     console.error('Error: insertUser', error);
-    throw new Error(error.message);
+    throw new Error('database error', error.message);
   }
 };
 
@@ -91,6 +91,7 @@ const updateUser = async (userId, user) => {
 
   try {
     await userExists(userId);
+    await uniqueUser(user);
     console.log(user);
 
     const [result] = await promisePool.query(
@@ -124,7 +125,7 @@ const removeUser = async (userId) => {
     return result;
   } catch (error) {
     console.error('Error: removeUser', error);
-    throw new Error(error.message);
+    throw new Error('database error', error.message);
   }
 };
 
@@ -152,7 +153,7 @@ const uniqueUser = async (user) => {
       throw new Error('Email already in use');
     }
   } catch (error) {
-    throw new Error(error.message);
+    throw new Error(error);
   }
 };
 
@@ -211,7 +212,7 @@ const userExists = async (userId) => {
     }
   } catch (error) {
     console.log('Error: userExists: ', error.message);
-    throw new Error(error.message);
+    throw new Error('database error', error.message);
   }
 };
 

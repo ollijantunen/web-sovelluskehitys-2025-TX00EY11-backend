@@ -1,6 +1,38 @@
 ## Web-sovelluskehitys -kurssi 1/2025-3/2025 @ Metropolia Ammattikorkeakoulu
 
-#### Backend-tehtävä, viikko 5
+### Authentication and authorization rules for routes
+
+#### Routes without authentication
+|Method|Route|For|
+|---|---|---|
+|GET|/|All|
+|GET|/api|All|
+|POST|/api/users|All|
+|POST|/api/auth/login|All|
+
+---
+Credentials must be provided in the authorization header with the request.
+`Authorization: Bearer <your-token>`
+
+#### Routes requiring authentication
+|Method|Route|For|
+|---|---|---|
+|GET|/api/auth/me|User|
+|GET|/api/users|User|
+|GET, POST|/api/entries/diaries/|User|
+|GET, PUT, DELETE|/api/entries/diaries/id|User|
+|GET, POST|/api/entries/drugs/|User|
+|GET, PUT, DELETE|/api/entries/drugs/id|User|
+|GET, POST|/api/entries/symptoms/|User|
+|GET, PUT, DELETE|/api/entries/symptoms/id|User|
+
+##### Routes requiring authorization (and authentication)
+|Method|Route|For|
+|---|---|---|
+|GET, PUT, DELETE|/api/users/id|User|
+
+
+### Backend-tehtävä, viikko 5
 
 ---
 
@@ -19,7 +51,7 @@ Continue your existing Express app and create a branch authentication
   - [ ] Implement proper authorization for protected routes, e.g.:
     - [ ] PUT /api/entries/:id - only entry owner can update entry
     - [ ] DELETE /api/entries/:id - only entry owner can delete entry
-    - [ ] PUT /api/users/ - users can update only their own user info
+    - [x] PUT /api/users/ - users can update only their own user info
     - [ ] and so on...
     - [ ] describe your rules in README.md
   - [ ] Extra (optional): think about how existing endpoints should work and what other endpoints you might need for your app and     implement them with proper authentication and authorization. e.g.:

@@ -1,15 +1,17 @@
 @symptomsApiUrl = http://127.0.0.1:3000/api/entries/symptoms
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMiwidXNlcm5hbWUiOiJqb2huZG9lMTUiLCJlbWFpbCI6ImpvaG5kb2UyMDIzQGV4YW1wbGUuY29tIiwibGFzdF9uYW1lIjpudWxsLCJmaXJzdF9uYW1lIjpudWxsLCJ1c2VyX2xldmVsIjoidXNlciIsImlhdCI6MTc0MTcxMzczNiwiZXhwIjoxNzQxODAwMTM2fQ.jqIIPBeq03jD7Mm3k9TJCzJJp9UFHyP_5PN_hlU5iy8
 
 ## symptom entries
 
 ### GET all symptom entries
 GET {{symptomsApiUrl}}/
-
+Authorization: Bearer {{user_token}}
 ### GET entry by id
 GET {{symptomsApiUrl}}/1
-
+Authorization: Bearer {{user_token}}
 ### POST add new entry
 POST {{symptomsApiUrl}}/
+Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
 {
@@ -22,6 +24,7 @@ Content-Type: application/json
 
 ### PUT update an entry by id
 PUT {{symptomsApiUrl}}/1
+Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
 {
@@ -33,3 +36,4 @@ Content-Type: application/json
 
 ### DELETE entry by id
 DELETE {{symptomsApiUrl}}/1
+Authorization: Bearer {{user_token}}

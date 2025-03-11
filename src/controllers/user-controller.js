@@ -31,9 +31,15 @@ const getUsers = async (req, res) => {
  */
 const getUserById = async (req, res) => {
   const id = Number(req.params.id);
+  const token_user_id = req.user.user_id;
 
   if (isNaN(id)) {
     return res.status(400).json({message: 'Invalid id property'});
+  }
+
+  // Varmistetaan, että käyttäjällä on oikeus hakea omat tietonsa
+  if (token_user_id !== id) {
+    return res.status(403).json({message: 'forbidden'});
   }
 
   try {
@@ -77,7 +83,7 @@ const addUser = async (req, res) => {
       const hashedPassword = await bcrypt.hash(newUser.password, salt);
       newUser.password = hashedPassword;
     } catch (error) {
-      throw new Error("bcrypt error: ", error.message);
+      throw new Error('bcrypt error: ', error.message);
     }
     try {
       const result = await insertUser(newUser);
@@ -104,7 +110,6 @@ const editUser = async (req, res) => {
 
   console.log(req.user);
 
-
   // Jos id-parametri ei ole numero(muotoinen), niin palautetaan virheilmoitus
   if (isNaN(id)) {
     return res.status(400).json({message: 'Invalid id property.'});
@@ -123,7 +128,7 @@ const editUser = async (req, res) => {
   }
   const updatableUser = {username, password, email, last_name, first_name};
   console.log(updatableUser);
-// Clean updatableUser of 'undefined' values
+  // Clean updatableUser of 'undefined' values
   for (let key in updatableUser) {
     if (updatableUser[key] === undefined) {
       delete updatableUser[key];
@@ -132,12 +137,14 @@ const editUser = async (req, res) => {
   console.log(updatableUser);
 
   // luodaan selväkielisestä salasanasta tiiviste
-  try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(updatableUser.password, salt);
-    updatableUser.password = hashedPassword;
-  } catch (error) {
-    throw new Error("bcrypt error: ", error.message);
+  if (updatableUser.password) {
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(updatableUser.password, salt);
+      updatableUser.password = hashedPassword;
+    } catch (error) {
+      throw new Error('bcrypt error: ', error.message);
+    }
   }
 
   try {
@@ -166,6 +173,7 @@ const deleteUser = async (req, res) => {
     return res.status(400).json({message: 'Invalid id property.'});
   }
 
+  // Varmistetaan, että käyttäjällä on oikeus poistaa resurssi
   if (token_user_id !== id) {
     return res.status(403).json({message: 'forbidden'});
   }

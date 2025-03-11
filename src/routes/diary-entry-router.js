@@ -9,12 +9,12 @@ import {
 
 const diaryEntryRouter = express.Router();
 
-// routes to /api/entries/
+// routes to /api/entries/diaries
 diaryEntryRouter.route('/')
   .get(getAllEntries)
   .post(addEntry);
 
-// routes to /api/entries/:id
+// routes to /api/entries/diaries/:id
 diaryEntryRouter.route('/:id')
   .get(getEntryById)
   .put(editEntry)
