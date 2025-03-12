@@ -41,7 +41,7 @@ const selectUserById = async (userId) => {
  * @param {string} username User username
  * @returns {object} User found or undefined if no user is found
  */
-const selectUserByUsername = async (username) => {
+const selectUserByUsernameForToken = async (username) => {
   const sql = `
     SELECT user_id, username, password, last_name, first_name, user_level
     FROM users
@@ -234,4 +234,4 @@ const userExists = async (userId) => {
 };
 
 
-export {selectAllUsers, selectUserById, selectUserByUsername, selectUserLevelById, insertUser, updateUser, removeUser};
+export {selectAllUsers, selectUserById, selectUserByUsernameForToken, selectUserLevelById, insertUser, updateUser, removeUser};

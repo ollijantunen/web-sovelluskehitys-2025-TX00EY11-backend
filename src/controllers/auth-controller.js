@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import bcrypt from 'bcryptjs';
-import {selectUserByUsername} from '../models/user-model.js';
+import {selectUserByUsernameForToken} from '../models/user-model.js';
 
 const login = async (req, res) => {
   console.log('postLogin req.body', req.body);
@@ -9,11 +9,12 @@ const login = async (req, res) => {
 
   if (username && password) {
     try {
-      const user = await selectUserByUsername(username);
+      const user = await selectUserByUsernameForToken(username);
 
       if (user) {
         const match = await bcrypt.compare(password, user.password);
         if (match) {
+          // Important to delete user password to not go to token
           delete user.password;
 
           const token = jwt.sign(user, process.env.JWT_SECRET, {
