@@ -43,7 +43,7 @@ const selectUserById = async (userId) => {
  */
 const selectUserByUsername = async (username) => {
   const sql = `
-    SELECT user_id, username, password, email, last_name, first_name, user_level
+    SELECT user_id, username, password, last_name, first_name, user_level
     FROM users
     WHERE username=?`;
   const values = [username];
@@ -58,6 +58,23 @@ const selectUserByUsername = async (username) => {
     console.log('Error selectUserByUsername', error);
     throw new Error('database error', error.message)
   }
+}
+
+const selectUserLevelById = async (userId) => {
+  const sql = `SELECT user_level FROM users WHERE user_id=?`;
+  const values = [userId];
+
+  try {
+    await userExists(userId);
+    const [rows] = await promisePool.query(sql, values);
+    console.log(rows);
+
+    return rows;
+  } catch (error) {
+    console.log('Error SelectUserLevelById', error);
+    throw new Error('database error', error.message)
+  }
+
 }
 
 /**
@@ -216,4 +233,5 @@ const userExists = async (userId) => {
   }
 };
 
-export {selectAllUsers, selectUserById, selectUserByUsername, insertUser, updateUser, removeUser};
+
+export {selectAllUsers, selectUserById, selectUserByUsername, selectUserLevelById, insertUser, updateUser, removeUser};
