@@ -18,6 +18,7 @@ const ownerOfEntry = async (userId, entryId, entryTopic) => {
 const isAdmin = async (userId) => {
   try {
     const userLevel = await selectUserLevelById(userId);
+    console.log('isAdmin user_level', userLevel);
 
     if (userLevel === 'admin') {
       return true;

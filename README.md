@@ -26,10 +26,11 @@ Credentials must be provided in the authorization header with the request.
 ##### Routes requiring authorization (and authentication)
 |Method|Route|For|
 |---|---|---|
-|GET, PUT, DELETE|/api/users/id|User|
-|GET, PUT, DELETE|/api/entries/diaries/id|User|
-|GET, PUT, DELETE|/api/entries/drugs/id|User|
-|GET, PUT, DELETE|/api/entries/symptoms/id|User|
+|GET, PUT, DELETE|/api/users/:id|User|
+|GET, PUT, DELETE|/api/entries/diaries/all|Admin|
+|GET, PUT, DELETE|/api/entries/diaries/:id|User|
+|GET, PUT, DELETE|/api/entries/drugs/:id|User|
+|GET, PUT, DELETE|/api/entries/symptoms/:id|User|
 
 
 ### Backend-tehtävä, viikko 5

@@ -2,22 +2,44 @@ import {
   insertEntry,
   removeEntry,
   selectAllEntries,
+  selectAllEntriesFromAllUsers,
   selectEntryById,
   updateEntry,
 } from '../models/diary-entry-model.js';
-import { ownerOfEntry } from './authorization-controller.js';
+import {isAdmin, ownerOfEntry} from './authorization-controller.js';
 
-const entryTopic = "diaryEntry";
+const entryTopic = 'diaryEntry';
 
 /**
- * Get all diary entries from database
+ * Get all diary entries of all users from database
  * @param {object} req Request object
  * @param {object} res Response object
- * @returns {object} All diary_entries as JSON-object
+ * @returns {object} All diary_entries of all users as JSON-object
+ */
+const getAllEntriesFromAllUsers = async (req, res) => {
+  const token_user_id = req.user.user_id;
+
+  try {
+    await isAdmin(token_user_id);
+
+    const entries = await selectAllEntriesFromAllUsers();
+    return res.status(200).json(entries);
+  } catch (error) {
+    console.log('Error: DiaryEntry-Controller: getDiaryEntries', error);
+    return res.status(500).json({message: error.message});
+  }
+};
+
+/**
+ * Get all diary entries of a user from database
+ * @param {object} req Request object
+ * @param {object} res Response object
+ * @returns {object} All diary_entries of a user as JSON-object
  */
 const getAllEntries = async (req, res) => {
+  const token_user_id = req.user.user_id;
   try {
-    const entries = await selectAllEntries();
+    const entries = await selectAllEntries(token_user_id);
     return res.status(200).json(entries);
   } catch (error) {
     console.log('Error: DiaryEntry-Controller: getDiaryEntries', error);
@@ -79,7 +101,7 @@ const addEntry = async (req, res) => {
       const result = await insertEntry(newEntry);
       return res.status(201).json({message: 'Entry added. Id: ' + result});
     } catch (error) {
-      console.log('Error: aaddEntry', error);
+      console.log('Error: addEntry', error);
       return res.status(500).json({message: error.message});
     }
   }
@@ -157,4 +179,11 @@ const deleteEntry = async (req, res) => {
   }
 };
 
-export {getAllEntries, getEntryById, addEntry, editEntry, deleteEntry};
+export {
+  getAllEntries,
+  getAllEntriesFromAllUsers,
+  getEntryById,
+  addEntry,
+  editEntry,
+  deleteEntry,
+};

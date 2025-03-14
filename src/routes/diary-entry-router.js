@@ -4,6 +4,7 @@ import {
   deleteEntry,
   editEntry,
   getAllEntries,
+  getAllEntriesFromAllUsers,
   getEntryById,
 } from '../controllers/diary-entry-controller.js';
 
@@ -14,10 +15,15 @@ diaryEntryRouter.route('/')
   .get(getAllEntries)
   .post(addEntry);
 
+  // routes to /api/entries/diaries/all
+diaryEntryRouter.route('/all')
+.get(getAllEntriesFromAllUsers);
+
 // routes to /api/entries/diaries/:id
 diaryEntryRouter.route('/:id')
   .get(getEntryById)
   .put(editEntry)
   .delete(deleteEntry);
+
 
 export default diaryEntryRouter;

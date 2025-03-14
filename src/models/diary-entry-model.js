@@ -1,13 +1,36 @@
 import promisePool from '../utils/database.js';
+import {entryExists} from './entry-model.js';
 
-// TODO mod to get only entries of auth user's user_id
+const entryTopic = 'diaryEntry';
+
 /**
- * Fetch all diary entries from database
+ * Fetch all diary entries of all users from database
  * @returns {object} All diary entries from all users
  */
-const selectAllEntries = async () => {
-  const sql = 'SELECT entry_id, user_id, entry_date, mood, weight, sleep_hours, notes, created_at FROM diary_entries';
-  const values = '';
+const selectAllEntriesFromAllUsers = async () => {
+  const sql = `
+    SELECT entry_id, user_id, entry_date, mood, weight, sleep_hours, notes, created_at
+    FROM diary_entries`;
+  try {
+    const [rows] = await promisePool.query(sql);
+    return rows;
+  } catch (error) {
+    console.log('Error: selectAllEntries');
+    throw new Error('database error', error.message);
+  }
+};
+
+/**
+ * Fetch all diary entries of a user from database
+ * @param {number} userId Id of user
+ * @returns {object} All diary entries from a user
+ */
+const selectAllEntries = async (userId) => {
+  const sql = `
+    SELECT entry_id, user_id, entry_date, mood, weight, sleep_hours, notes, created_at
+    FROM diary_entries
+    WHERE user_id=?`;
+  const values = [userId];
   try {
     const [rows] = await promisePool.query(sql, values);
     return rows;
@@ -23,7 +46,10 @@ const selectAllEntries = async () => {
  * @returns {object} Entry of the sent entry_id from database
  */
 const selectEntryById = async (entryId) => {
-  const sql = 'SELECT entry_id, user_id, entry_date, mood, weight, sleep_hours, notes, created_at FROM diary_entries WHERE entry_id=?';
+  const sql = `
+    SELECT entry_id, user_id, entry_date, mood, weight, sleep_hours, notes, created_at
+    FROM diary_entries
+    WHERE entry_id=?`;
   const values = [entryId];
   try {
     const [rows] = await promisePool.query(sql, values);
@@ -65,10 +91,10 @@ const updateEntry = async (entryId, entry) => {
   const sql = 'UPDATE diary_entries SET ? WHERE entry_id = ?';
   const values = [entry, entryId];
   try {
-    await entryExists(entryId);
+    await entryExists(entryId, entryTopic);
     console.log(entry);
 
-    const [result] = await promisePool.query(sql,values);
+    const [result] = await promisePool.query(sql, values);
     console.log('updateEntry result ', result);
     return result.affectedRows;
   } catch (error) {
@@ -86,13 +112,13 @@ const removeEntry = async (entryId) => {
   const sql = 'DELETE FROM diary_entries WHERE entry_id=?';
   const values = [entryId];
   try {
-    await entryExists(entryId);
+    await entryExists(entryId, entryTopic);
 
-    const [result] = await promisePool.query(sql,values);
+    const [result] = await promisePool.query(sql, values);
 
     console.log('removeEntry result ', result);
     if (result.affectedRows === 0) {
-      throw new Error("No rows affected");
+      throw new Error('No rows affected');
     }
     return result;
   } catch (error) {
@@ -101,44 +127,11 @@ const removeEntry = async (entryId) => {
   }
 };
 
-//
-// HELPERS
-//
-
-// Helper to check if entry exists
-const entryExists = async (entryId) => {
-  const sql = 'SELECT COUNT(entry_id) as count FROM diary_entries WHERE entry_id=?';
-  const values = [entryId];
-  try {
-    console.log('entryExists query');
-
-    const [rows] = await promisePool.query(sql, values);
-    console.log(rows);
-
-    if (rows[0].count === 1) {
-      return true;
-    } else {
-      throw new Error('No such entry');
-    }
-  } catch (error) {
-    console.log('Error: entryExists: ', error.message);
-    throw new Error(error.message);
-  }
+export {
+  selectAllEntries,
+  selectAllEntriesFromAllUsers,
+  selectEntryById,
+  insertEntry,
+  updateEntry,
+  removeEntry,
 };
-
-// Helper to get user_id of an entry
-const userIdOfEntry = async(entryId) => {
-  const sql =`SELECT user_id FROM diary_entries WHERE entry_id=?`;
-  const values=[entryId];
-
-  try {
-    await entryExists(entryId);
-    const [rows]= await promisePool.query(sql, values);
-    return rows[0].user_id;
-  } catch (error) {
-    console.log('Error: userIdOfEntry: ', error.message);
-    throw new Error(error.message);
-  }
-}
-
-export {selectAllEntries, selectEntryById, insertEntry, updateEntry, removeEntry, userIdOfEntry};

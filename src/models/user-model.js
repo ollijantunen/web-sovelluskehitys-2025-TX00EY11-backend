@@ -67,9 +67,8 @@ const selectUserLevelById = async (userId) => {
   try {
     await userExists(userId);
     const [rows] = await promisePool.query(sql, values);
-    console.log(rows);
 
-    return rows;
+    return rows[0].user_level;
   } catch (error) {
     console.log('Error SelectUserLevelById', error);
     throw new Error('database error', error.message)

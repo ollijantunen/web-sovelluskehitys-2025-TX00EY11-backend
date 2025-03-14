@@ -1,4 +1,7 @@
 import promisePool from '../utils/database.js';
+import { entryExists } from './entry-model.js';
+
+const entryTopic = "drugEntry";
 
 // TODO mod to get only entries of auth user's user_id
 /**
@@ -70,7 +73,7 @@ const updateEntry = async (entryId, entry) => {
   const sql = `UPDATE drug_entries SET ? WHERE entry_id = ?`;
   const values = [entry, entryId];
   try {
-    await entryExists(entryId);
+    await entryExists(entryId, entryTopic);
     console.log(entry);
 
     const [result] = await promisePool.query(sql, values);
@@ -91,7 +94,7 @@ const removeEntry = async (entryId) => {
   const sql = `DELETE FROM drug_entries WHERE entry_id=?`;
   const values = [entryId];
   try {
-    await entryExists(entryId);
+    await entryExists(entryId, entryTopic);
 
     const [result] = await promisePool.query(sql, values);
 
@@ -106,45 +109,6 @@ const removeEntry = async (entryId) => {
   }
 };
 
-//
-// HELPERS
-//
-
-// Helper to check if user exists
-const entryExists = async (entryId) => {
-  const sql = `SELECT COUNT(entry_id) as count FROM drug_entries WHERE entry_id=?`;
-  const values = [entryId];
-  try {
-    console.log('entryExists query');
-
-    const [rows] = await promisePool.query(sql, values);
-    console.log(rows);
-
-    if (rows[0].count === 1) {
-      return true;
-    } else {
-      throw new Error('No such entry');
-    }
-  } catch (error) {
-    console.log('Error: entryExists: ', error.message);
-    throw new Error(error.message);
-  }
-};
-
-// Helper to get user_id of an entry
-const userIdOfEntry = async (entryId) => {
-  const sql = `SELECT user_id FROM drug_entries WHERE entry_id=?`;
-  const values = [entryId];
-
-  try {
-    await entryExists(entryId);
-    const [rows] = await promisePool.query(sql, values);
-    return rows[0].user_id;
-  } catch (error) {
-    console.log('Error: userIdOfEntry: ', error.message);
-    throw new Error(error.message);
-  }
-};
 
 export {
   selectAllEntries,
@@ -152,5 +116,4 @@ export {
   insertEntry,
   updateEntry,
   removeEntry,
-  userIdOfEntry,
 };
