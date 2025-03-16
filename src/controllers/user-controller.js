@@ -6,6 +6,7 @@ import {
   selectUserById,
   updateUser,
 } from '../models/user-model.js';
+import {isAdmin} from './authorization-controller.js';
 
 /**
  * Get all users from database
@@ -14,7 +15,10 @@ import {
  * @returns {object} All users as JSON-object
  */
 const getUsers = async (req, res) => {
+  const token_user_id = req.user.user_id;
   try {
+    await isAdmin(token_user_id);
+
     const users = await selectAllUsers();
     return res.status(200).json(users);
   } catch (error) {
@@ -38,8 +42,14 @@ const getUserById = async (req, res) => {
   }
 
   // Varmistetaan, että käyttäjällä on oikeus hakea omat tietonsa
+  // tai hän on admin
   if (token_user_id !== id) {
-    return res.status(403).json({message: 'forbidden'});
+    try {
+      await isAdmin(token_user_id);
+    } catch (error) {
+      console.log(error);
+      return res.status(403).json({message: 'forbidden'});
+    }
   }
 
   try {

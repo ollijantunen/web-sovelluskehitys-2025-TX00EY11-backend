@@ -18,7 +18,6 @@ Credentials must be provided in the authorization header with the request.
 |Method|Route|For|
 |---|---|---|
 |GET|/api/auth/me|User|
-|GET|/api/users|User|
 |GET, POST|/api/entries/diaries/|User|
 |GET, POST|/api/entries/drugs/|User|
 |GET, POST|/api/entries/symptoms/|User|
@@ -26,10 +25,13 @@ Credentials must be provided in the authorization header with the request.
 ##### Routes requiring authorization (and authentication)
 |Method|Route|For|
 |---|---|---|
+|GET|/api/users|Admin|
 |GET, PUT, DELETE|/api/users/:id|User|
 |GET, PUT, DELETE|/api/entries/diaries/all|Admin|
 |GET, PUT, DELETE|/api/entries/diaries/:id|User|
+|GET, PUT, DELETE|/api/entries/drugs/all|Admin|
 |GET, PUT, DELETE|/api/entries/drugs/:id|User|
+|GET, PUT, DELETE|/api/entries/symptoms/all|Admin|
 |GET, PUT, DELETE|/api/entries/symptoms/:id|User|
 
 
@@ -56,13 +58,13 @@ Continue your existing Express app and create a branch authentication
     - [x] and so on...
     - [x] describe your rules in README.md
   - [ ] Extra (optional): think about how existing endpoints should work and what other endpoints you might need for your app and     implement them with proper authentication and authorization. e.g.:
-    - [ ] GET /api/entries - list only user's own entries: get all entries by user id from token
+    - [x] GET /api/entries - list only user's own entries: get all entries by user id from token
     - [ ] GET /api/entries/stats - get some statistics about entries like sleep time average, etc.
   - [ ] Extra (optional): implement user roles (e.g. admin, user) with different permissions (role based resource authorization)
     - [x] Regular users can only delete and edit their own data
       Modify the DELETE and UPDATE SQL queries in models so that queries will also check that the owner of the item (user_id) matches the user_id property in the req.user object. req.user is decoded from the token and needs to be passed as a parameter from controller to corresponding model method.
-    - [ ] Admin level users can see, update or delete any diary entries, user info, etc.
-      You cant create a new function in the user model that checks if the user is an admin and returns a boolean value.
+    - [x] Admin level users can see, update or delete any diary entries, user info, etc.
+      You can create a new function in the user model that checks if the user is an admin and returns a boolean value.
       Add another DELETE and UPDATE SQL queries into model functions that do not check the user_id property. Instead, you need to check that the user id from the token belongs to an admin user.
       Use e.g. conditional statements in the models to decide which SQL query to use based on the user level.
 
@@ -70,6 +72,12 @@ Continue your existing Express app and create a branch authentication
 
 ###### Omaan:
 Kommentit:
+Toteutin autentikaation JWT-tokenin avulla. Salasanat hashataan Bcryptin avulla ja sisäänkirjautuessa hasheja verrataan.
+Jaoin reitit julkisiin, autentikointia vaativiin ja valtuutusta vaativiin. Toteutin middlewarena tokenin tarkastuksen.
+
+Toteutin valtuutuksen siten, että "käyttäjät" voivat hakea ja tarkastella vain omia tietojaan. Mikäli käyttäjä on myös "admin"-tasoinen, voi hän hakea kaikkien käyttäjien tietoja, mutta ei muokata niitä (En nähnyt järkeväksi sovelluksen toiminnan kannalta.).
+
+Lista reittien vaatimista tunnistautumisista ja valtuutuksista Readme:ssa:
 
 ---
 

@@ -4,6 +4,7 @@ import {
   deleteEntry,
   editEntry,
   getAllEntries,
+  getAllEntriesFromAllUsers,
   getEntryById,
 } from '../controllers/drug-entry-controller.js';
 
@@ -13,6 +14,10 @@ const drugEntryRouter = express.Router();
 drugEntryRouter.route('/')
   .get(getAllEntries)
   .post(addEntry);
+
+// routes to /api/entries/drugs/all
+drugEntryRouter.route('/all')
+.get(getAllEntriesFromAllUsers);
 
 // routes to /api/entries/drugs/:id
 drugEntryRouter.route('/:id')

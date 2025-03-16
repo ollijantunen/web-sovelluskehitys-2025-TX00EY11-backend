@@ -1,16 +1,20 @@
 @drugsApiUrl = http://127.0.0.1:3000/api/entries/drugs
-@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMiwidXNlcm5hbWUiOiJqb2huZG9lMTUiLCJlbWFpbCI6ImpvaG5kb2UyMDIzQGV4YW1wbGUuY29tIiwibGFzdF9uYW1lIjpudWxsLCJmaXJzdF9uYW1lIjpudWxsLCJ1c2VyX2xldmVsIjoidXNlciIsImlhdCI6MTc0MTcxMzczNiwiZXhwIjoxNzQxODAwMTM2fQ.jqIIPBeq03jD7Mm3k9TJCzJJp9UFHyP_5PN_hlU5iy8
+@user_token =
 
 ## drug entries
 
-### GET all drug entries
+### GET all entries
+GET {{drugsApiUrl}}/all
+Authorization: Bearer {{user_token}}
+### GET all entries
+GET {{drugsApiUrl}}/all
+
+### GET all entries of a user
 GET {{drugsApiUrl}}/
 Authorization: Bearer {{user_token}}
-### GET all drug entries
-GET {{drugsApiUrl}}
 
 ### GET entry by id
-GET {{drugsApiUrl}}/1
+GET {{drugsApiUrl}}/27
 Authorization: Bearer {{user_token}}
 
 ### POST add new entry
@@ -40,6 +44,6 @@ Content-Type: application/json
 }
 
 ### DELETE entry by id
-DELETE {{drugsApiUrl}}/1
+DELETE {{drugsApiUrl}}/27
 Authorization: Bearer {{user_token}}
 

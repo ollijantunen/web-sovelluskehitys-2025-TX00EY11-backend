@@ -14,7 +14,7 @@ const entryTopic = 'diaryEntry';
  * Get all diary entries of all users from database
  * @param {object} req Request object
  * @param {object} res Response object
- * @returns {object} All diary_entries of all users as JSON-object
+ * @returns {object} All diary entries of all users as JSON-object
  */
 const getAllEntriesFromAllUsers = async (req, res) => {
   const token_user_id = req.user.user_id;

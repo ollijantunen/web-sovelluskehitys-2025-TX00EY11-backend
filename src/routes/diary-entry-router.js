@@ -15,7 +15,7 @@ diaryEntryRouter.route('/')
   .get(getAllEntries)
   .post(addEntry);
 
-  // routes to /api/entries/diaries/all
+// routes to /api/entries/diaries/all
 diaryEntryRouter.route('/all')
 .get(getAllEntriesFromAllUsers);
 

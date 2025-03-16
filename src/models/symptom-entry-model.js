@@ -3,16 +3,34 @@ import { entryExists } from './entry-model.js';
 
 const entryTopic = "symptomEntry";
 
-// TODO mod to get only entries of auth user's user_id
 /**
- * Fetch all symptom entries from database
+ * Fetch all symptom entries of all users from database
  * @returns {object} All symptom entries from all users
  */
-const selectAllEntries = async () => {
+const selectAllEntriesFromAllUsers = async () => {
   const sql = `
     SELECT entry_id, user_id, entry_date, illness_name, symptom_description, symptom_intensity, created_at
     FROM symptom_entries`;
-  const values = '';
+  try {
+    const [rows] = await promisePool.query(sql);
+    return rows;
+  } catch (error) {
+    console.log('Error: selectAllEntries');
+    throw new Error('database error', error.message);
+  }
+};
+
+/**
+ * Fetch all symptom entries from database
+ * @param {number} userId Id of user
+ * @returns {object} All symptom entries from all users
+ */
+const selectAllEntries = async (userId) => {
+  const sql = `
+    SELECT entry_id, user_id, entry_date, illness_name, symptom_description, symptom_intensity, created_at
+    FROM symptom_entries
+    WHERE user_id=?`;
+  const values = [userId];
   try {
     const [rows] = await promisePool.query(sql, values);
     return rows;
@@ -111,6 +129,7 @@ const removeEntry = async (entryId) => {
 
 export {
   selectAllEntries,
+  selectAllEntriesFromAllUsers,
   selectEntryById,
   insertEntry,
   updateEntry,

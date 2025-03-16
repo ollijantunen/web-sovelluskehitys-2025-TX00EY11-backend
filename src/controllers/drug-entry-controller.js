@@ -2,22 +2,44 @@ import {
   insertEntry,
   removeEntry,
   selectAllEntries,
+  selectAllEntriesFromAllUsers,
   selectEntryById,
   updateEntry,
 } from '../models/drug-entry-model.js';
-import { ownerOfEntry } from './authorization-controller.js';
+import { isAdmin, ownerOfEntry } from './authorization-controller.js';
 
 const entryTopic = "drugEntry";
 
 /**
- * Get all drug entries from database
+ * Get all drug entries of all users from database
  * @param {object} req Request object
  * @param {object} res Response object
- * @returns {object} All drug entries as JSON-object
+ * @returns {object} All drug entries of all users as JSON-object
+ */
+const getAllEntriesFromAllUsers = async (req, res) => {
+  const token_user_id = req.user.user_id;
+
+  try {
+    await isAdmin(token_user_id);
+
+    const entries = await selectAllEntriesFromAllUsers();
+    return res.status(200).json(entries);
+  } catch (error) {
+    console.log('Error: DiaryEntry-Controller: getDiaryEntries', error);
+    return res.status(500).json({message: error.message});
+  }
+};
+
+/**
+ * Get all drug entries of a user from database
+ * @param {object} req Request object
+ * @param {object} res Response object
+ * @returns {object} All drug entries of a user as JSON-object
  */
 const getAllEntries = async (req, res) => {
+  const token_user_id = req.user.user_id;
   try {
-    const entries = await selectAllEntries();
+    const entries = await selectAllEntries(token_user_id);
     return res.status(200).json(entries);
   } catch (error) {
     console.log('Error: DrugEntry-Controller: getAllEntries', error);
@@ -144,7 +166,6 @@ const deleteEntry = async (req, res) => {
   const id = Number(req.params.id);
   const token_user_id = req.user.user_id;
 
-
   // Jos id-parametri ei ole numero(muotoinen), niin palautetaan virheilmoitus
   if (isNaN(id)) {
     return res.status(400).json({message: 'Invalid id property.'});
@@ -160,4 +181,11 @@ const deleteEntry = async (req, res) => {
   }
 };
 
-export {getAllEntries, getEntryById, addEntry, editEntry, deleteEntry};
+export {
+  getAllEntries,
+  getAllEntriesFromAllUsers,
+  getEntryById,
+  addEntry,
+  editEntry,
+  deleteEntry,
+};
