@@ -1,28 +1,22 @@
 ## Web-sovelluskehitys -kurssi 1/2025-3/2025 @ Metropolia Ammattikorkeakoulu
 
-### Backend-tehtävä, viikko 6
+### Backend-tehtävä, viikko 7
 
 ---
 
-https://github.com/mattpe/hyte-web-dev/blob/main/09-validation.md#assignment---input-validation-and-error-handling
+https://github.com/mattpe/hyte-web-dev/blob/main/11-documentation.md#assignment---api-documentation
 
 #### Tehtävänanto
 
-##### Week Assignment 6 - Input validation and error handling
+##### Week Assignment 7 - API Documentation
 
-- [x] Implement error handler middleware
-  - [x] Use the error handler in your controllers instead of "hard-coded" sending error responses
-- [x] Implement proper server-side validation and sanitization for input data
-  - [x] Use express-validator
-  - [x] Specify the validation rules for each field in the request bodies
+Continue your existing Express app and create a new branch docs (see teachers's lecture example)
+  - [ ] Create API documentation for your app using apidoc, Swagger or other similar tool of your own choice
+    - [ ] install needed packages
+    - [ ] generate documentation (for example to docs folder using npm script)
+    - [ ] serve the documentation within your app (use express.static middleware for serving the docs folder)
 
-- [ ] Returning: See related assignment in Oma.
-
-###### Omaan:
-Kommentit:
-
-Implementoin syötteiden validoinnin ja puhdistamisen jokaiseen käyttäjän syötteen omaavaan reittiin.
-Implementoin virheenkäsittelyn jokaiseen kontrollerin funktioon ja validointivirheenkäsittelijä reitteihin, joissa validoidaan.
+Returning: No specific return is needed. The documentation should be available for your individual project.
 
 ---
 
