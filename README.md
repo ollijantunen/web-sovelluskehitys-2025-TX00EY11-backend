@@ -10,16 +10,19 @@ https://github.com/mattpe/hyte-web-dev/blob/main/09-validation.md#assignment---i
 
 ##### Week Assignment 6 - Input validation and error handling
 
-- [ ] Implement error handler middleware
-  - [ ] Use the error handler in your controllers instead of "hard-coded" sending error responses
-- [ ] Implement proper server-side validation and sanitization for input data
-  - [ ] Use express-validator
-  - [ ] Specify the validation rules for each field in the request bodies
+- [x] Implement error handler middleware
+  - [x] Use the error handler in your controllers instead of "hard-coded" sending error responses
+- [x] Implement proper server-side validation and sanitization for input data
+  - [x] Use express-validator
+  - [x] Specify the validation rules for each field in the request bodies
 
 - [ ] Returning: See related assignment in Oma.
 
 ###### Omaan:
 Kommentit:
+
+Implementoin syötteiden validoinnin ja puhdistamisen jokaiseen käyttäjän syötteen omaavaan reittiin.
+Implementoin virheenkäsittelyn jokaiseen kontrollerin funktioon ja validointivirheenkäsittelijä reitteihin, joissa validoidaan.
 
 ---
 

@@ -27,7 +27,7 @@ Content-Type: application/json
 }
 
 ### PUT update an entry by id
-PUT {{symptomsApiUrl}}/16
+PUT {{symptomsApiUrl}}/1
 Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
@@ -39,5 +39,5 @@ Content-Type: application/json
 }
 
 ### DELETE entry by id
-DELETE {{symptomsApiUrl}}/19
+DELETE {{symptomsApiUrl}}/27
 Authorization: Bearer {{user_token}}

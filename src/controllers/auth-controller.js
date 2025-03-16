@@ -2,10 +2,19 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 import {selectUserByUsernameForToken} from '../models/user-model.js';
+import { customError } from '../middlewares/error-handler.js';
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   console.log('postLogin req.body', req.body);
   const {username, password} = req.body;
+
+  // if (!username) {
+  //   return next(customError('Username missing.', 400));
+  // }
+
+  // if (!password) {
+  //   return next(customError('Password missing.', 400));
+  // }
 
   if (username && password) {
     try {
@@ -24,17 +33,12 @@ const login = async (req, res) => {
           return res.status(200).json({message: 'Login ok', user, token});
         }
       }
-
-      return res.status(401).json({message: 'Bad username or password.'});
+      next(customError('Bad username or password.', 400))
     } catch (error) {
       console.log('Error: Auth-Controller: login', error);
-      return res.status(500).json({message: error.message});
+      next(customError('Server error', 500));
     }
   }
-
-  return res
-    .status(400)
-    .json({message: 'Request is missing required attributes.'});
 };
 
 const getMe = (req, res) => {

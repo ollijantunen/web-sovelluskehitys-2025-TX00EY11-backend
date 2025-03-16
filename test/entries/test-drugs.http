@@ -14,7 +14,7 @@ GET {{drugsApiUrl}}/
 Authorization: Bearer {{user_token}}
 
 ### GET entry by id
-GET {{drugsApiUrl}}/27
+GET {{drugsApiUrl}}/32
 Authorization: Bearer {{user_token}}
 
 ### POST add new entry
@@ -31,7 +31,7 @@ Content-Type: application/json
 }
 
 ### PUT update an entry by id
-PUT {{drugsApiUrl}}/27
+PUT {{drugsApiUrl}}/32
 Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
@@ -44,6 +44,6 @@ Content-Type: application/json
 }
 
 ### DELETE entry by id
-DELETE {{drugsApiUrl}}/27
+DELETE {{drugsApiUrl}}/32
 Authorization: Bearer {{user_token}}
 

@@ -14,7 +14,7 @@ GET {{diariesApiUrl}}/
 Authorization: Bearer {{user_token}}
 
 ### GET entry by id
-GET {{diariesApiUrl}}/1
+GET {{diariesApiUrl}}/32
 Authorization: Bearer {{user_token}}
 
 ### POST add new entry
@@ -31,7 +31,7 @@ Content-Type: application/json
 }
 
 ### PUT update an entry by id
-PUT {{diariesApiUrl}}/30
+PUT {{diariesApiUrl}}/32
 Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
@@ -39,7 +39,7 @@ Content-Type: application/json
     "entry_dat": "2025-03-01",
     "entry_date": "2025-03-02",
     "mood": "good",
-    "weight": "75",
+    "weight": "10.31",
     "sleep_hours": "7",
     "notes": "updated entry"
 }

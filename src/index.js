@@ -3,6 +3,7 @@ import cors from 'cors';
 import userRouter from './routes/user-router.js';
 import entryRouter from './routes/entry-router.js';
 import authRouter from './routes/auth-router.js';
+import { errorHandler, notFoundHandler } from './middlewares/error-handler.js';
 const hostname = '127.0.0.1';
 const app = express();
 const port = 3000;
@@ -31,14 +32,11 @@ app.use('/api/users', userRouter);
 // Entries-resurssien päätepisteet (endpoint)
 app.use('/api/entries', entryRouter);
 
-// Kaikkien olemattomien resurssien vastaus 404
-// Asteriski toimii, koska tämä kohta on viimeisenä reittinä tiedostossa
-// Tosin http://127.0.0.1:3000 ilman kauttaviivaa menee funktioon, mutta staattinen juuren tiedosto tulee 200
-app.all('*', (req, res) => {
-  console.log('Olematon resurssi.');
-  res.status(404);
-  res.send('Reittiä ei löydy.');
-});
+// Kaikki olemattomat resurssit ohjataan middlewarelle
+app.use(notFoundHandler);
+
+// Virheet ohjataan virheenkäsittelijälle
+app.use(errorHandler);
 
 // Serveri kuuntelee porttia osoitteessa yhteydenottojen varalta
 app.listen(port, hostname, () => {

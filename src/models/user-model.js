@@ -13,7 +13,7 @@ const selectAllUsers = async () => {
     return rows;
   } catch (error) {
     console.log('Error: selectAllUsers', error);
-    throw new Error('database error', error.message);
+    throw new Error('database error');
   }
 };
 
@@ -32,7 +32,7 @@ const selectUserById = async (userId) => {
     return rows[0];
   } catch (error) {
     console.error('Error: selectUserById', error);
-    throw new Error('database error', error.message);
+    throw new Error('database error');
   }
 };
 
@@ -56,7 +56,7 @@ const selectUserByUsernameForToken = async (username) => {
     return rows[0];
   } catch (error) {
     console.log('Error selectUserByUsername', error);
-    throw new Error('database error', error.message)
+    throw new Error('database error');
   }
 }
 
@@ -71,7 +71,7 @@ const selectUserLevelById = async (userId) => {
     return rows[0].user_level;
   } catch (error) {
     console.log('Error SelectUserLevelById', error);
-    throw new Error('database error', error.message)
+    throw new Error('database error', error.message);
   }
 
 }
@@ -118,7 +118,7 @@ const updateUser = async (userId, user) => {
     return result.affectedRows;
   } catch (error) {
     console.error('Error: updateUser', error);
-    throw new Error(error.message);
+    throw new Error('database error', error.message);
   }
 };
 
@@ -188,7 +188,7 @@ const uniqueUsername = async (username) => {
     }
   } catch (error) {
     console.log('Error: uniqueUsername: ', error.message);
-    throw new Error('database error', error.message);
+    throw new Error('database error');
   }
 };
 
@@ -207,7 +207,7 @@ const uniqueEmail = async (email) => {
     }
   } catch (error) {
     console.log('Error: uniqueEmail: ', error.message);
-    throw new Error('database error', error.message);
+    throw new Error('database error');
   }
 };
 
@@ -228,7 +228,7 @@ const userExists = async (userId) => {
     }
   } catch (error) {
     console.log('Error: userExists: ', error.message);
-    throw new Error('database error', error.message);
+    throw new Error('database error');
   }
 };
 

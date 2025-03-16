@@ -1,3 +1,4 @@
+import { customError } from '../middlewares/error-handler.js';
 import {
   insertEntry,
   removeEntry,
@@ -16,7 +17,7 @@ const entryTopic = "symptomEntry";
  * @param {object} res Response object
  * @returns {object} All symptom entries of all users as JSON-object
  */
-const getAllEntriesFromAllUsers = async (req, res) => {
+const getAllEntriesFromAllUsers = async (req, res, next) => {
   const token_user_id = req.user.user_id;
 
   try {
@@ -26,7 +27,7 @@ const getAllEntriesFromAllUsers = async (req, res) => {
     return res.status(200).json(entries);
   } catch (error) {
     console.log('Error: DiaryEntry-Controller: getDiaryEntries', error);
-    return res.status(500).json({message: error.message});
+    return next(customError(error.message, 500));
   }
 };
 
@@ -36,14 +37,14 @@ const getAllEntriesFromAllUsers = async (req, res) => {
  * @param {object} res Response object
  * @returns {object} All symptom entries of a user as JSON-object
  */
-const getAllEntries = async (req, res) => {
+const getAllEntries = async (req, res, next) => {
   const token_user_id = req.user.user_id;
   try {
     const entries = await selectAllEntries(token_user_id);
     return res.status(200).json(entries);
   } catch (error) {
     console.log('Error: SymptomEntry-Controller: getAllEntries', error);
-    return res.status(500).json({message: error.message});
+    return next(customError(error.message, 500));
   }
 };
 
@@ -53,26 +54,27 @@ const getAllEntries = async (req, res) => {
  * @param {object} res Response object
  * @returns {object} Entry object
  */
-const getEntryById = async (req, res) => {
+const getEntryById = async (req, res, next) => {
   const id = Number(req.params.id);
   const token_user_id = req.user.user_id;
 
-  if (isNaN(id)) {
-    return res.status(400).json({message: 'Invalid id property'});
+  try {
+    await ownerOfEntry(token_user_id, id, entryTopic);
+  } catch (error) {
+    return next(customError(error.message, 403));
   }
 
   try {
-    await ownerOfEntry(token_user_id, id, entryTopic);
     const entry = await selectEntryById(id);
     // lähetetään entry, jos löytyi eli ei ole undefined
     if (entry) {
       return res.send(entry);
     } else {
-      return res.status(404).json({message: 'Entry not found'});
+      return next(customError('Entry not found', 404));
     }
   } catch (error) {
     console.log('Error: getEntryById', error);
-    return res.status(500).json({message: error.message});
+    return next(customError(error.message, 500));
   }
 };
 
@@ -82,7 +84,7 @@ const getEntryById = async (req, res) => {
  * @param {object} res Response object
  * @returns {object} Message object including id of created entry
  */
-const addEntry = async (req, res) => {
+const addEntry = async (req, res, next) => {
   console.log('addEntry req.body', req.body);
   const user_id = req.user.user_id;
   const {entry_date, illness_name, symptom_description, symptom_intensity} = req.body;
@@ -102,12 +104,10 @@ const addEntry = async (req, res) => {
       return res.status(201).json({message: 'Entry added. Id: ' + result});
     } catch (error) {
       console.log('Error: aaddEntry', error);
-      return res.status(500).json({message: error.message});
+      return next(customError(error.message, 500));
     }
   }
-  return res
-    .status(400)
-    .json({message: 'Request is missing required attributes.'});
+  return next(customError('Request is missing required attributes.', 400));
 };
 
 /**
@@ -116,7 +116,7 @@ const addEntry = async (req, res) => {
  * @param {object} res Response object
  * @returns {object} Message object including id of updated entry
  */
-const editEntry = async (req, res) => {
+const editEntry = async (req, res, next) => {
   const id = Number(req.params.id);
   const token_user_id = req.user.user_id;
 
@@ -144,12 +144,17 @@ const editEntry = async (req, res) => {
 
   try {
     await ownerOfEntry(token_user_id, id, entryTopic);
+  } catch (error) {
+    return next(customError(error.message, 403));
+  }
+
+  try {
     const result = await updateEntry(id, updatableEntry);
     console.log(result);
     return res.status(200).json({message: 'Entry updated.'});
   } catch (error) {
     console.log('Error: editEntry', error);
-    res.status(500).json({message: error.message});
+    return next(customError(error.message, 500));
   }
 };
 
@@ -159,22 +164,23 @@ const editEntry = async (req, res) => {
  * @param {object} res Response object
  * @returns {object} Message object
  */
-const deleteEntry = async (req, res) => {
+const deleteEntry = async (req, res, next) => {
   const id = Number(req.params.id);
   const token_user_id = req.user.user_id;
 
-  // Jos id-parametri ei ole numero(muotoinen), niin palautetaan virheilmoitus
-  if (isNaN(id)) {
-    return res.status(400).json({message: 'Invalid id property.'});
-  }
   try {
     await ownerOfEntry(token_user_id, id, entryTopic);
+  } catch (error) {
+    return next(customError(error.message, 403));
+  }
+
+  try {
     const result = await removeEntry(id);
     console.log(result.affectedRows);
     res.status(200).json({message: `Entry id ${id} deleted.`});
   } catch (error) {
     console.log('Error: deleteEntry');
-    res.status(500).json({message: error.message});
+    return next(customError(error.message, 500));
   }
 };
 

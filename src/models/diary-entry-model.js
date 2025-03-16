@@ -15,8 +15,8 @@ const selectAllEntriesFromAllUsers = async () => {
     const [rows] = await promisePool.query(sql);
     return rows;
   } catch (error) {
-    console.log('Error: selectAllEntries');
-    throw new Error('database error', error.message);
+    console.log('Error: selectAllEntries', error);
+    throw new Error('database error');
   }
 };
 
@@ -35,8 +35,8 @@ const selectAllEntries = async (userId) => {
     const [rows] = await promisePool.query(sql, values);
     return rows;
   } catch (error) {
-    console.log('Error: selectAllEntries');
-    throw new Error('database error', error.message);
+    console.log('Error: selectAllEntries', error);
+    throw new Error('database error');
   }
 };
 
@@ -56,8 +56,8 @@ const selectEntryById = async (entryId) => {
     console.log('selectEntryById rows ', rows);
     return rows[0];
   } catch (error) {
-    console.error('Error: selectEntryById');
-    throw new Error('database error', error.message);
+    console.error('Error: selectEntryById', error);
+    throw new Error('database error');
   }
 };
 
@@ -76,8 +76,8 @@ const insertEntry = async (entry) => {
     console.log('insertEntry result ', result);
     return result.insertId;
   } catch (error) {
-    console.error('Error: insertEntry');
-    throw new Error(error.message);
+    console.error('Error: insertEntry', error);
+    throw new Error('database error');
   }
 };
 
@@ -98,8 +98,8 @@ const updateEntry = async (entryId, entry) => {
     console.log('updateEntry result ', result);
     return result.affectedRows;
   } catch (error) {
-    console.error('Error: updateEntry');
-    throw new Error(error.message);
+    console.error('Error: updateEntry', error);
+    throw new Error('database error', error.message);
   }
 };
 
@@ -122,8 +122,8 @@ const removeEntry = async (entryId) => {
     }
     return result;
   } catch (error) {
-    console.error('Error: removeEntry');
-    throw new Error(error.message);
+    console.error('Error: removeEntry', error);
+    throw new Error('database error', error.message);
   }
 };
 

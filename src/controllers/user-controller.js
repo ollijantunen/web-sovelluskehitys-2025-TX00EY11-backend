@@ -7,6 +7,7 @@ import {
   updateUser,
 } from '../models/user-model.js';
 import {isAdmin} from './authorization-controller.js';
+import {customError} from '../middlewares/error-handler.js';
 
 /**
  * Get all users from database
@@ -14,16 +15,21 @@ import {isAdmin} from './authorization-controller.js';
  * @param {object} res Response object
  * @returns {object} All users as JSON-object
  */
-const getUsers = async (req, res) => {
+const getUsers = async (req, res, next) => {
   const token_user_id = req.user.user_id;
+
   try {
     await isAdmin(token_user_id);
+  } catch (error) {
+    return next(customError(error.message, 403));
+  }
 
+  try {
     const users = await selectAllUsers();
     return res.status(200).json(users);
   } catch (error) {
     console.log('Error: User-Controller: getUsers', error);
-    return res.status(500).json({message: error.message});
+    return next(customError(error.message, 500));
   }
 };
 
@@ -33,13 +39,9 @@ const getUsers = async (req, res) => {
  * @param {object} res Response object
  * @returns {object} User object
  */
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   const id = Number(req.params.id);
   const token_user_id = req.user.user_id;
-
-  if (isNaN(id)) {
-    return res.status(400).json({message: 'Invalid id property'});
-  }
 
   // Varmistetaan, että käyttäjällä on oikeus hakea omat tietonsa
   // tai hän on admin
@@ -48,7 +50,7 @@ const getUserById = async (req, res) => {
       await isAdmin(token_user_id);
     } catch (error) {
       console.log(error);
-      return res.status(403).json({message: 'forbidden'});
+      return next(customError(error.message, 403));
     }
   }
 
@@ -58,11 +60,11 @@ const getUserById = async (req, res) => {
     if (user) {
       return res.send(user);
     } else {
-      return res.status(404).json({message: 'User not found'});
+      return next(customError('User not found', 404));
     }
   } catch (error) {
     console.log('Error: getUserById', error);
-    return res.status(500).json({message: error.message});
+    return next(customError(error.message, 500));
   }
 };
 
@@ -72,7 +74,15 @@ const getUserById = async (req, res) => {
  * @param {object} res Response object
  * @returns {object} Message object including id of created user
  */
-const addUser = async (req, res) => {
+const addUser = async (req, res, next) => {
+  // const errors = validationResult(req);
+
+  // if (!errors.isEmpty()) {
+  //   const error = new Error('Invalid or missing required fields');
+  //   error.status = 400;
+  //   return next(error);
+  // }
+
   console.log('addUser req.body', req.body);
   const {username, password, email, last_name, first_name} = req.body;
 
@@ -93,19 +103,18 @@ const addUser = async (req, res) => {
       const hashedPassword = await bcrypt.hash(newUser.password, salt);
       newUser.password = hashedPassword;
     } catch (error) {
-      throw new Error('bcrypt error: ', error.message);
+      console.log('bcrypt error: ', error.message);
+      return next(customError('Server error', 500));
     }
     try {
       const result = await insertUser(newUser);
       return res.status(201).json({message: 'User added. Id: ' + result});
     } catch (error) {
       console.log('Error: addUser', error);
-      return res.status(500).json({message: error.message});
+      return next(customError(error.message, 500));
     }
   }
-  return res
-    .status(400)
-    .json({message: 'Request is missing required attributes.'});
+  return next(customError('Request is missing required attributes.', 400));
 };
 
 /**
@@ -114,27 +123,21 @@ const addUser = async (req, res) => {
  * @param {object} res Response object
  * @returns {object} Message object including id of updated user
  */
-const editUser = async (req, res) => {
+const editUser = async (req, res, next) => {
   const id = Number(req.params.id);
   const token_user_id = req.user.user_id;
 
   console.log(req.user);
 
-  // Jos id-parametri ei ole numero(muotoinen), niin palautetaan virheilmoitus
-  if (isNaN(id)) {
-    return res.status(400).json({message: 'Invalid id property.'});
-  }
   // Varmistetaan, että käyttäjällä on oikeus päivittää resurssia
   if (token_user_id !== id) {
-    return res.status(403).json({message: 'forbidden'});
+    return next(customError('Forbidden', 403));
   }
 
   const {username, password, email, last_name, first_name} = req.body;
   // Jos req.bodyssä ei ole tarvittavia atribuutteja, palautetaan virheilmoitus
   if (!(username || password || email || last_name || first_name)) {
-    return res
-      .status(400)
-      .json({message: 'Request is missing required attributes.'});
+    return next(customError('Request is missing required attributes.', 400));
   }
   const updatableUser = {username, password, email, last_name, first_name};
   console.log(updatableUser);
@@ -153,7 +156,8 @@ const editUser = async (req, res) => {
       const hashedPassword = await bcrypt.hash(updatableUser.password, salt);
       updatableUser.password = hashedPassword;
     } catch (error) {
-      throw new Error('bcrypt error: ', error.message);
+      console.log('bcrypt error: ', error.message);
+      return next(customError('Server error', 500));
     }
   }
 
@@ -163,7 +167,7 @@ const editUser = async (req, res) => {
     return res.status(200).json({message: 'User updated.'});
   } catch (error) {
     console.log('Error: editUser', error);
-    res.status(500).json({message: error.message});
+    return next(customError(error.message, 500));
   }
 };
 
@@ -174,18 +178,13 @@ const editUser = async (req, res) => {
  * @param {object} res Response object
  * @returns {object} Message object
  */
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
   const id = Number(req.params.id);
   const token_user_id = req.user.user_id;
 
-  // Jos id-parametri ei ole numero(muotoinen), niin palautetaan virheilmoitus
-  if (isNaN(id)) {
-    return res.status(400).json({message: 'Invalid id property.'});
-  }
-
   // Varmistetaan, että käyttäjällä on oikeus poistaa resurssi
   if (token_user_id !== id) {
-    return res.status(403).json({message: 'forbidden'});
+    return next(customError('Forbidden', 403));
   }
 
   try {
@@ -194,7 +193,7 @@ const deleteUser = async (req, res) => {
     res.status(200).json({message: `User id ${id} deleted.`});
   } catch (error) {
     console.log('Error: deleteUser', error);
-    res.status(500).json({message: error.message});
+    return next(customError(error.message, 500));
   }
 };
 
