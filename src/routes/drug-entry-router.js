@@ -12,7 +12,24 @@ import {validationErrorHandler} from '../middlewares/error-handler.js';
 
 const drugEntryRouter = express.Router();
 
-// routes to /api/entries/drugs
+/**
+ * @api {get} /api/entries/drugs Get list of entries of a user
+ * @apiName GetEntries
+ * @apiGroup DrugEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ */
+
+/**
+ * @api {post} /api/entries/drugs Add an entry for a user
+ * @apiName AddEntry
+ * @apiGroup DrugEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiHeader {json} Content-Type application/json
+ */
 drugEntryRouter
   .route('/')
   .get(getAllEntries)
@@ -47,10 +64,48 @@ drugEntryRouter
     addEntry,
   );
 
-// routes to /api/entries/drugs/all
+/**
+ * @api {get} /api/entries/drugs/all Get list of entries of all users
+ * @apiName GetEntriesOfAllUsers
+ * @apiGroup DrugEntries
+ * @apiPermission token
+ * @apiPermission admin
+ * @apiUse authTokenHeader
+ */
 drugEntryRouter.route('/all').get(getAllEntriesFromAllUsers);
 
-// routes to /api/entries/drugs/:id
+/**
+ * @apiDefine entryIdParam define
+ * @apiParam {Number} id Entry's unique ID
+ */
+
+/**
+ * @api {get} /api/entries/drugs/:id Get entry details
+ * @apiName GetEntryById
+ * @apiGroup DrugEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse entryIdParam
+ */
+/**
+ * @api {put} /api/entries/drugs/:id Update entry details
+ * @apiName UpdateEntryById
+ * @apiGroup DrugEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse entryIdParam
+ */
+/**
+ * @api {delete} /api/entries/drugs/:id Delete entry
+ * @apiName DeleteEntryById
+ * @apiGroup DrugEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse entryIdParam
+ */
 drugEntryRouter
   .route('/:id')
   .get(

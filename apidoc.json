@@ -1,0 +1,21 @@
+{
+    "name": "Health app API docs",
+    "version": "1.0.0",
+    "title": "Health app API docs",
+    "description": "Health app API for course work",
+    "url": "http://localhost:3000/api",
+    "order": [
+      "Authentication",
+      "PostLogin",
+      "Users",
+      "GetUsers",
+      "AddUser",
+      "GetUserById",
+      "UpdateUserById",
+      "GetEntriesOfAllUsers",
+      "GetEntries",
+      "AddEntry",
+      "GetEntryById",
+      "UpdateEntryById"
+    ]
+}

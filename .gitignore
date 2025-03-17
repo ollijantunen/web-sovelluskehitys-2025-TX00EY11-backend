@@ -4,6 +4,7 @@
 .DS_Store
 coverage
 node_modules
+docs/
 
 # dotenv environment variable files
 .env

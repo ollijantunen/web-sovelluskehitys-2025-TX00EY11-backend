@@ -12,7 +12,36 @@ import {validationErrorHandler} from '../middlewares/error-handler.js';
 
 const userRouter = express.Router();
 
-// routes to /api/users
+/**
+ * @apiDefine admin User is admin
+ * User's user level is admin
+ */
+/**
+ * @apiDefine user User is user
+ * User's user level is user
+ */
+
+/**
+ * @apiDefine authTokenHeader Auth header
+ * @apiHeader {String} Authorization Authentication bearer token
+ */
+
+/**
+ * @api {get} /api/users Get list of users
+ * @apiName GetUsers
+ * @apiGroup Users
+ * @apiPermission token
+ * @apiPermission admin
+ * @apiUse authTokenHeader
+ */
+
+/**
+ * @api {post} /api/users Add a new user
+ * @apiName AddUser
+ * @apiGroup Users
+ * @apiPermission all
+ * @apiHeader {json} Content-Type application/json
+ */
 userRouter
   .route('/')
   .get(authenticateToken, getUsers)
@@ -48,7 +77,40 @@ userRouter
     addUser,
   );
 
-// routes to /api/users/:id
+/**
+ * @apiDefine userIdParam define
+ * @apiParam {Number} id User's unique ID
+ */
+
+/**
+ * @api {get} /api/user/:id Get user details
+ * @apiName GetUserById
+ * @apiGroup Users
+ * @apiPermission token
+ * @apiPermission user
+ * @apiPermission admin
+ * @apiUse authTokenHeader
+ * @apiUse userIdParam
+ */
+
+/**
+ * @api {put} /api/user/:id Update user details
+ * @apiName UpdateUserById
+ * @apiGroup Users
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse userIdParam
+ */
+
+/**
+ * @api {delete} /api/user/:id Delete user
+ * @apiName DeleteUserById
+ * @apiGroup Users
+ * @apiPermission token
+ * @apiPermission admin
+ * @apiUse authTokenHeader
+ * @apiUse userIdParam
+ */
 userRouter
   .route('/:id')
   .get(

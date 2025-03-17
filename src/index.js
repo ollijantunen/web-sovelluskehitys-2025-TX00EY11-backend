@@ -17,11 +17,8 @@ app.use(express.static('public'));
 // Middleware, joka lukee json-datan POST-pyyntöjen rungosta/hyötykuormasta(body)
 app.use(express.json());
 
-// REST-apin resurssit tarjoillaan muualla kuin juuressa, tässä /api/-polun alla
-app.get('/api/', (req, res) => {
-  console.log('get-pyyntö /api/-reittiin', req.url);
-  res.send('Welcome to my REST API!');
-});
+// REST-apin dokumentaatio
+app.use('/api', express.static('docs'));
 
 // Käyttäjän autentikoiminen (kirjautuminen)
 app.use('/api/auth', authRouter);

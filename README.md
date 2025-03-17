@@ -12,9 +12,9 @@ https://github.com/mattpe/hyte-web-dev/blob/main/11-documentation.md#assignment-
 
 Continue your existing Express app and create a new branch docs (see teachers's lecture example)
   - [ ] Create API documentation for your app using apidoc, Swagger or other similar tool of your own choice
-    - [ ] install needed packages
-    - [ ] generate documentation (for example to docs folder using npm script)
-    - [ ] serve the documentation within your app (use express.static middleware for serving the docs folder)
+    - [x] install needed packages
+    - [x] generate documentation (for example to docs folder using npm script)
+    - [x] serve the documentation within your app (use express.static middleware for serving the docs folder)
 
 Returning: No specific return is needed. The documentation should be available for your individual project.
 
@@ -46,7 +46,8 @@ Credentials must be provided in the authorization header with the request.
 |Method|Route|For|
 |---|---|---|
 |GET|/api/users|Admin|
-|GET, PUT, DELETE|/api/users/:id|User|
+|GET, PUT|/api/users/:id|User|
+|DELETE|/api/users/:id|Admin|
 |GET, PUT, DELETE|/api/entries/diaries/all|Admin|
 |GET, PUT, DELETE|/api/entries/diaries/:id|User|
 |GET, PUT, DELETE|/api/entries/drugs/all|Admin|

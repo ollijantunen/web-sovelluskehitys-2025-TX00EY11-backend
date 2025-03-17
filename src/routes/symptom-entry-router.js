@@ -12,7 +12,24 @@ import {validationErrorHandler} from '../middlewares/error-handler.js';
 
 const symptomEntryRouter = express.Router();
 
-// routes to /api/entries/symptoms
+/**
+ * @api {get} /api/entries/symptoms Get list of entries of a user
+ * @apiName GetEntries
+ * @apiGroup SymptomEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ */
+
+/**
+ * @api {post} /api/entries/symptoms Add an entry for a user
+ * @apiName AddEntry
+ * @apiGroup SymptomEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiHeader {json} Content-Type application/json
+ */
 symptomEntryRouter
   .route('/')
   .get(getAllEntries)
@@ -41,10 +58,48 @@ symptomEntryRouter
     addEntry,
   );
 
-// routes to /api/entries/diaries/all
+/**
+ * @api {get} /api/entries/symptoms/all Get list of entries of all users
+ * @apiName GetEntriesOfAllUsers
+ * @apiGroup SymptomEntries
+ * @apiPermission token
+ * @apiPermission admin
+ * @apiUse authTokenHeader
+ */
 symptomEntryRouter.route('/all').get(getAllEntriesFromAllUsers);
 
-// routes to /api/entries/symptoms/:id
+/**
+ * @apiDefine entryIdParam define
+ * @apiParam {Number} id Entry's unique ID
+ */
+
+/**
+ * @api {get} /api/entries/symptoms/:id Get entry details
+ * @apiName GetEntryById
+ * @apiGroup SymptomEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse entryIdParam
+ */
+/**
+ * @api {put} /api/entries/symptoms/:id Update entry details
+ * @apiName UpdateEntryById
+ * @apiGroup SymptomEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse entryIdParam
+ */
+/**
+ * @api {delete} /api/entries/symptoms/:id Delete entry
+ * @apiName DeleteEntryById
+ * @apiGroup SymptomEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse entryIdParam
+ */
 symptomEntryRouter
   .route('/:id')
   .get(

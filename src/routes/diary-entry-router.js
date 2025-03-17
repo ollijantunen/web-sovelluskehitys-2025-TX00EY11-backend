@@ -12,7 +12,24 @@ import {validationErrorHandler} from '../middlewares/error-handler.js';
 
 const diaryEntryRouter = express.Router();
 
-// routes to /api/entries/diaries
+/**
+ * @api {get} /api/entries/diaries Get list of entries of a user
+ * @apiName GetEntries
+ * @apiGroup DiaryEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ */
+
+/**
+ * @api {post} /api/entries/diaries Add an entry for a user
+ * @apiName AddEntry
+ * @apiGroup DiaryEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiHeader {json} Content-Type application/json
+ */
 diaryEntryRouter
   .route('/')
   .get(getAllEntries)
@@ -49,10 +66,49 @@ diaryEntryRouter
     addEntry,
   );
 
-// routes to /api/entries/diaries/all
+
+/**
+ * @api {get} /api/entries/diaries/all Get list of entries of all users
+ * @apiName GetEntriesOfAllUsers
+ * @apiGroup DiaryEntries
+ * @apiPermission token
+ * @apiPermission admin
+ * @apiUse authTokenHeader
+ */
 diaryEntryRouter.route('/all').get(getAllEntriesFromAllUsers);
 
-// routes to /api/entries/diaries/:id
+/**
+ * @apiDefine entryIdParam define
+ * @apiParam {Number} id Entry's unique ID
+ */
+
+/**
+ * @api {get} /api/entries/diaries/:id Get entry details
+ * @apiName GetEntryById
+ * @apiGroup DiaryEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse entryIdParam
+ */
+/**
+ * @api {put} /api/entries/diaries/:id Update entry details
+ * @apiName UpdateEntryById
+ * @apiGroup DiaryEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse entryIdParam
+ */
+/**
+ * @api {delete} /api/entries/diaries/:id Delete entry
+ * @apiName DeleteEntryById
+ * @apiGroup DiaryEntries
+ * @apiPermission token
+ * @apiPermission user
+ * @apiUse authTokenHeader
+ * @apiUse entryIdParam
+ */
 diaryEntryRouter
   .route('/:id')
   .get(

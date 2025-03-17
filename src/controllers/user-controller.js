@@ -183,8 +183,11 @@ const deleteUser = async (req, res, next) => {
   const token_user_id = req.user.user_id;
 
   // Varmistetaan, että käyttäjällä on oikeus poistaa resurssi
-  if (token_user_id !== id) {
-    return next(customError('Forbidden', 403));
+  try {
+    await isAdmin(token_user_id);
+  } catch (error) {
+    console.log(error);
+    return next(customError(error.message, 403));
   }
 
   try {
